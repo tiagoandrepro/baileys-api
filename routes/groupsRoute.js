@@ -23,4 +23,7 @@ router.post(
     controller.send
 )
 
+
+router.get('/code/:jid', query('id').notEmpty(), requestValidator, sessionValidator,    controller.groupInviteCode)
+
 export default router

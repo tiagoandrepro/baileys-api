@@ -13,9 +13,14 @@ import makeWASocket, {
 import { toDataURL } from 'qrcode'
 import __dirname from './dirname.js'
 import response from './response.js'
+import { webhook } from './services/webhook.js'
+
 
 const sessions = new Map()
 const retries = new Map()
+
+const protocol = process.env.PROTOCOL ?? 'http'
+const socket = protocol === 'websocket' ? makeWSClient() : null
 
 const sessionsDir = (sessionId = '') => {
     return join(__dirname, 'sessions', sessionId ? sessionId : '')
@@ -107,12 +112,16 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
     wa.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect } = update
         const statusCode = lastDisconnect?.error?.output?.statusCode
+        const userInfo = wa?.user
 
         if (connection === 'open') {
             retries.delete(sessionId)
+            const data = Object.assign(update, userInfo)
+            webhook(sessionId, 'connection/open', data)
         }
 
         if (connection === 'close') {
+            webhook(sessionId, 'connection/close', update)
             if (statusCode === DisconnectReason.loggedOut || !shouldReconnect(sessionId)) {
                 if (res && !res.headersSent) {
                     response(res, 500, false, 'Unable to create session.')
@@ -267,6 +276,11 @@ const init = () => {
     })
 }
 
+const inviteCode = async (session, req) => {
+    console.log(req)
+    return await session.groupInviteCode(req)
+}
+
 export {
     isSessionExists,
     createSession,
@@ -279,4 +293,5 @@ export {
     formatGroup,
     cleanup,
     init,
+    inviteCode
 }

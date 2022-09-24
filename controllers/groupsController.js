@@ -1,4 +1,4 @@
-import { getSession, getChatList, isExists, sendMessage, formatGroup } from './../whatsapp.js'
+import { getSession, getChatList, isExists, sendMessage, formatGroup, inviteCode } from './../whatsapp.js'
 import response from './../response.js'
 
 const getList = (req, res) => {
@@ -42,4 +42,23 @@ const send = async (req, res) => {
     }
 }
 
-export { getList, getGroupMetaData, send }
+const groupInviteCode = async (req, res) => {
+    const session = getSession(res.locals.sessionId)
+    const { jid } = req.params
+    try {
+        const exists = await isExists(session, jid, true)
+
+        if (!exists) {
+            return response(res, 400, false, 'The group is not exists.')
+        }
+
+        const group = await inviteCode(session, jid)
+
+        response(res, 200, true, 'Invite code successfully.', group)
+
+    } catch {
+        response(res, 500, false, 'Failed invite code.')
+    }
+}
+
+export { getList, getGroupMetaData, send, groupInviteCode }
