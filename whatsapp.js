@@ -188,6 +188,11 @@ const getChatList = (sessionId, isGroup = false) => {
     })
 }
 
+const getGroupsWithParticipants = async (session) => {
+    const groups = await session.groupFetchAllParticipating()
+    return groups
+}
+
 /**
  * @param {import('@adiwajshing/baileys').AnyWASocket} session
  */
@@ -281,6 +286,11 @@ const inviteCode = async (session, req) => {
     return await session.groupInviteCode(req)
 }
 
+const leave = async (session, jid) => {
+    console.log(jid)
+    return await session.groupLeave(jid)
+}
+
 export {
     isSessionExists,
     createSession,
@@ -293,5 +303,7 @@ export {
     formatGroup,
     cleanup,
     init,
-    inviteCode
+    inviteCode,
+    getGroupsWithParticipants,
+leave
 }

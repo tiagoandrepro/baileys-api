@@ -13,6 +13,7 @@ router.get('/:jid', query('id').notEmpty(), requestValidator, sessionValidator, 
 
 router.get('/meta/:jid', query('id').notEmpty(), requestValidator, sessionValidator, controller.getGroupMetaData)
 
+
 router.post(
     '/send',
     query('id').notEmpty(),
@@ -25,5 +26,9 @@ router.post(
 
 
 router.get('/code/:jid', query('id').notEmpty(), requestValidator, sessionValidator,    controller.groupInviteCode)
+
+
+
+router.post('/leave/:jid', query('id').notEmpty(), requestValidator, sessionValidator,  controller.groupLeave)
 
 export default router
