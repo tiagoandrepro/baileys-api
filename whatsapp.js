@@ -103,11 +103,14 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
     })
 
     // Automatically read incoming messages, uncomment below codes to enable this behaviour
-    /*
+    
     wa.ev.on('messages.upsert', async (m) => {
-        const message = m.messages[0]
+    
+            webhook(sessionId, 'messages/upsert', m)
 
-        if (!message.key.fromMe && m.type === 'notify') {
+       /*  const message = m.messages[0]
+
+       if (!message.key.fromMe && m.type === 'notify') {
             await delay(1000)
 
             if (isLegacy) {
@@ -115,9 +118,9 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
             } else {
                 await wa.sendReadReceipt(message.key.remoteJid, message.key.participant, [message.key.id])
             }
-        }
+        }*/
     })
-    */
+    
 
     wa.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect } = update
