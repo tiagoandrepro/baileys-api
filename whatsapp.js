@@ -91,6 +91,16 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
             store.chats.insertIfAbsent(...chats)
         }
     })
+    
+        wa.ev.on('groups.update', async (chats) => {
+        // WEBHOOK
+        webhook(sessionId, 'groups/update', chats)
+    })
+
+    wa.ev.on('group-participants.update', async (chats) => {
+        //
+        webhook(sessionId, 'groups/participants', chats)
+    })
 
     // Automatically read incoming messages, uncomment below codes to enable this behaviour
     /*
