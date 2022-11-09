@@ -9,6 +9,8 @@ const router = Router()
 
 router.get('/', query('id').notEmpty(), requestValidator, sessionValidator, controller.getList)
 
+router.post('/create', query('id').notEmpty(), body('groupName').notEmpty(), body('participants').notEmpty(), requestValidator, sessionValidator, controller.create)
+
 router.get('/:jid', query('id').notEmpty(), requestValidator, sessionValidator, getMessages)
 
 router.get('/meta/:jid', query('id').notEmpty(), requestValidator, sessionValidator, controller.getGroupMetaData)
