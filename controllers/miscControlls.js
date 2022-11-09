@@ -1,4 +1,4 @@
-import { updateProfileStatus, getSession } from './../whatsapp.js'
+import { updateProfileStatus, updateProfileName, getSession } from './../whatsapp.js'
 import response from './../response.js'
 
 
@@ -12,7 +12,16 @@ const setProfileStatus = async (req, res) => {
     }
 }
 
+const setProfileName = async (req, res) => {
+    try {
+        const session = getSession(res.locals.sessionId)
+        await updateProfileName(session, req.body.name)
+        response(res, 200, true, 'The name has been updated successfully')
+    } catch {
+        response(res, 500, false, 'Failed to update name')
+    }
+}
 
 
 
-export { setProfileStatus }
+export { setProfileStatus, setProfileName }

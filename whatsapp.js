@@ -227,7 +227,15 @@ const sendMessage = async (session, receiver, message, delayMs = 1000) => {
  */
 const updateProfileStatus = async (session, status) => {
     try {
-        return session.updateProfileStatus(status)
+        return await session.updateProfileStatus(status)
+    } catch {
+        return Promise.reject(null) // eslint-disable-line prefer-promise-reject-errors
+    }
+}
+
+const updateProfileName = async (session, name) => {
+    try {
+        return await session.updateProfileName(name)
     } catch {
         return Promise.reject(null) // eslint-disable-line prefer-promise-reject-errors
     }
@@ -293,6 +301,7 @@ export {
     isExists,
     sendMessage,
     updateProfileStatus,
+    updateProfileName,
     formatPhone,
     formatGroup,
     cleanup,
