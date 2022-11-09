@@ -1,4 +1,4 @@
-import { isSessionExists, createSession, getSession, deleteSession } from './../whatsapp.js'
+import { isSessionExists, createSession, getSession, getListSessions, deleteSession } from './../whatsapp.js'
 import response from './../response.js'
 
 const find = (req, res) => {
@@ -43,4 +43,8 @@ const del = async (req, res) => {
     response(res, 200, true, 'The session has been successfully deleted.')
 }
 
-export { find, status, add, del }
+const list = (req, res) => {
+    response(res, 200, true, 'Session list', getListSessions())
+}
+
+export { find, status, add, del, list }

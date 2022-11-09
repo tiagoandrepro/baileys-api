@@ -52,9 +52,9 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
     let state, saveState
 
     if (isLegacy) {
-        ;({ state, saveState } = useSingleFileLegacyAuthState(sessionsDir(sessionFile)))
+        ; ({ state, saveState } = useSingleFileLegacyAuthState(sessionsDir(sessionFile)))
     } else {
-        ;({ state, saveCreds: saveState } = await useMultiFileAuthState(sessionsDir(sessionFile)))
+        ; ({ state, saveCreds: saveState } = await useMultiFileAuthState(sessionsDir(sessionFile)))
     }
 
     /**
@@ -157,6 +157,10 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
  */
 const getSession = (sessionId) => {
     return sessions.get(sessionId) ?? null
+}
+
+const getListSessions = () => {
+    return [...sessions.keys()]
 }
 
 const deleteSession = (sessionId, isLegacy = false) => {
@@ -271,6 +275,7 @@ export {
     isSessionExists,
     createSession,
     getSession,
+    getListSessions,
     deleteSession,
     getChatList,
     isExists,
