@@ -160,6 +160,7 @@ const getSession = (sessionId) => {
 }
 
 const getListSessions = () => {
+    console.log(sessions)
     return [...sessions.keys()]
 }
 
@@ -216,6 +217,17 @@ const sendMessage = async (session, receiver, message, delayMs = 1000) => {
         await delay(parseInt(delayMs))
 
         return session.sendMessage(receiver, message)
+    } catch {
+        return Promise.reject(null) // eslint-disable-line prefer-promise-reject-errors
+    }
+}
+
+/**
+ * @param {import('@adiwajshing/baileys').AnyWASocket} session
+ */
+const updateProfileStatus = async (session, status) => {
+    try {
+        return session.updateProfileStatus(status)
     } catch {
         return Promise.reject(null) // eslint-disable-line prefer-promise-reject-errors
     }
@@ -280,6 +292,7 @@ export {
     getChatList,
     isExists,
     sendMessage,
+    updateProfileStatus,
     formatPhone,
     formatGroup,
     cleanup,
