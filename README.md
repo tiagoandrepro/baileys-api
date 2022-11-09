@@ -37,7 +37,7 @@ Also check out the `examples` directory for the basic usage examples.
 
 ## API Docs
 
-The API documentation is available online [here](https://documenter.getpostman.com/view/18988925/UVeNni36). You can also import the **Postman Collection File** `(postman_collection.json)` into your Postman App alternatively.
+The API documentation is available online [here](https://documenter.getpostman.com/view/9471522/2s8YehTwHJ). You can also import the **Postman Collection File** `(postman_collection.json)` into your Postman App alternatively.
 
 The server will respond in following JSON format:
 
