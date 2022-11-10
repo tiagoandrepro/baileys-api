@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "92b6ff15-d51c-472c-bbc0-81f7db72c0b8",
-		"name": "Baileys API v0.2",
+		"name": "Baileys API v0.4",
 		"description": "API Documentation for [https://github.com/ookamiiixd/baileys-api](https://github.com/ookamiiixd/baileys-api).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "9471522"
@@ -4591,6 +4591,1669 @@
 							"body": "{\n    \"success\": false,\n    \"message\": \"Failed to create the group.\",\n    \"data\": {}\n}"
 						}
 					]
+				},
+				{
+					"name": "Group Update Participants",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"demote\", \r\n    \"participants\": [\r\n        \"628231xxxxx\"\r\n    ]\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/groups/participants-update/{{jid}}?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"groups",
+								"participants-update",
+								"{{jid}}"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}",
+									"description": "Your created session id."
+								}
+							]
+						},
+						"description": "It allows you to update a group in whatsapp it is necessary that the participants are in your list if you want to add them\n\nStartFragment\n\nReplace this parameter `action` with:\n\n- `add`\n- `remove`\n- `demote`\n- `promote`\n    \n\nEndFragment"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"action\": \"demote\", \r\n    \"participants\": [\r\n        \"628231xxxxx\"\r\n    ]\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/groups/create?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"create"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 15:04:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Update participants successfully.\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"action\": \"demote\", \r\n    \"participants\": [\r\n        \"628231xxxxx\"\r\n    ]\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/groups/create?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"create"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 14:14:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed update participants\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Group Update Subject",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subject\": \"Subject Hi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/groups/subject-update/{{jid}}?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"groups",
+								"subject-update",
+								"{{jid}}"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}",
+									"description": "Your created session id."
+								}
+							]
+						},
+						"description": "It allows you to update a group in whatsapp it is necessary that the participants are in your list if you want to add them\n\nStartFragment\n\nReplace this parameter `action` with:\n\n- `add`\n- `remove`\n- `demote`\n- `promote`\n    \n\nEndFragment"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subject\": \"Subject Hi\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/groups/subject-update/{{jid}}?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"subject-update",
+										"{{jid}}"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 15:04:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Update subject successfully.\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subject\": \"Subject Hi\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/groups/subject-update/{{jid}}?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"subject-update",
+										"{{jid}}"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 14:14:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed update subject.\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Group Update Description",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Description Hi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/groups/description-update/{{jid}}?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"groups",
+								"description-update",
+								"{{jid}}"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}",
+									"description": "Your created session id."
+								}
+							]
+						},
+						"description": "It allows you to update a group in whatsapp it is necessary that the participants are in your list if you want to add them\n\nStartFragment\n\nReplace this parameter `action` with:\n\n- `add`\n- `remove`\n- `demote`\n- `promote`\n    \n\nEndFragment"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"Description Hi\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/groups/description-update/{{jid}}?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"description-update",
+										"{{jid}}"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 15:04:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Update description successfully.\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"Description Hi\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/groups/description-update/{{jid}}?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"description-update",
+										"{{jid}}"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 14:14:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed description subject.\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Group Update Settings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"settings\": \"announcement\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/groups/setting-update/{{jid}}?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"groups",
+								"setting-update",
+								"{{jid}}"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}",
+									"description": "Your created session id."
+								}
+							]
+						},
+						"description": "It allows you to change group settings\n\nReplace this parameter `settings`with:\n\n- only allow admins to send messages: `announcement`\n- allow everyone to send messages: `not_announcement`\n- allow everyone to modify the group's settings -- like display picture etc: `unlocked`\n- only allow admins to modify the group's settings: `locked`"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"settings\": \"announcement\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/groups/setting-update/{{jid}}?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"setting-update",
+										"{{jid}}"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 15:04:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Update description successfully.\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"settings\": \"announcement\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/groups/setting-update/{{jid}}?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"setting-update",
+										"{{jid}}"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 14:14:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed update setting.\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Group Get Invite Code",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/groups/invite-code/{{jid}}?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"groups",
+								"invite-code",
+								"{{jid}}"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}",
+									"description": "Your created session id."
+								}
+							]
+						},
+						"description": "To get the invite code for a group\n\nConcatenate: [https://chat.whatsapp.com/](https://chat.whatsapp.com/LpwHX9drRx2DlCzmVxCfUm)`xxxxxxxxx`"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/groups/accept-invite?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"accept-invite"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 15:04:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Invite code successfully.\",\n    \"data\": \"BRgDNcvwo7XH620BeSVRtp\"\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/groups/accept-invite?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"accept-invite"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 14:14:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed invite code.\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Group Join Invite Code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"invite\": \"LpwHX9drRx2DlCXXXXXXX\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/groups/accept-invite?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"groups",
+								"accept-invite"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}",
+									"description": "Your created session id."
+								}
+							]
+						},
+						"description": "To join the group using the invitation code"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"invite\": \"LpwHX9drRx2DlCXXXXXXX\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/groups/accept-invite?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"accept-invite"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 15:04:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Accept invite successfully.\",\n    \"data\": \"573145117826-152549XXX@g.us\"\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"invite\": \"LpwHX9drRx2DlCXXXXXXX\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/groups/accept-invite?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"accept-invite"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 14:14:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed accept invite.\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Group Revoke Invite Code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/groups/revoke-code/{{jid}}?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"groups",
+								"revoke-code",
+								"{{jid}}"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}",
+									"description": "Your created session id."
+								}
+							]
+						},
+						"description": "To join the group using the invitation code"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/groups/revoke-code/{{jid}}?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"revoke-code",
+										"{{jid}}"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 15:04:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Revoke code successfully.\",\n    \"data\": \"new invite code\"\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/groups/revoke-code/{{jid}}?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"revoke-code",
+										"{{jid}}"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 14:14:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed rovoke code.\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Group Update Picture",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://source.unsplash.com/random/200x200\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/groups/profile-picture/{{jid}}?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"groups",
+								"profile-picture",
+								"{{jid}}"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}",
+									"description": "Your created session id."
+								}
+							]
+						},
+						"description": "To change your display picture or a group's"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"https://source.unsplash.com/random/200x200\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/groups/profile-picture/{{jid}}?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"profile-picture",
+										"{{jid}}"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 15:04:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Update profile picture successfully.\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"https://source.unsplash.com/random/200x200\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/groups/profile-picture/{{jid}}?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"profile-picture",
+										"{{jid}}"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 14:14:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed Update profile picture.\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Group List Without Participants",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/groups/get-participants?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"groups",
+								"get-participants"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}"
+								}
+							]
+						},
+						"description": "To list of group with participants"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/groups/get-participants?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"get-participants"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 15:04:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"\",\n    \"data\": {\n        \"12036302930xxxxxx@g.us\": {\n            \"id\": \"12036302930xxxxxx@g.us\",\n            \"subject\": \"My Firt Group\",\n            \"subjectOwner\": \"628950xxxxx@s.whatsapp.net\",\n            \"subjectTime\": 1667962920,\n            \"size\": null,\n            \"creation\": 1667962920,\n            \"owner\": \"628950xxxxx@s.whatsapp.net\",\n            \"restrict\": false,\n            \"announce\": false,\n            \"participants\": [\n                {\n                    \"id\": \"628950xxxxx@s.whatsapp.net\",\n                    \"admin\": \"superadmin\"\n                }\n            ]\n        },\n        \"1203630272198xxxxx@g.us\": {\n            \"id\": \"1203630272198xxxxx@g.us\",\n            \"subject\": \"Subject Hi\",\n            \"subjectOwner\": \"628950xxxxx@s.whatsapp.net\",\n            \"subjectTime\": 1668048329,\n            \"size\": null,\n            \"creation\": 1668046664,\n            \"owner\": \"628950xxxxx@s.whatsapp.net\",\n            \"desc\": {\n                \"type\": \"Buffer\",\n                \"data\": [\n                    68,\n                    101,\n                    115,\n                    99,\n                    114,\n                    105,\n                    112,\n                    116,\n                    105,\n                    111,\n                    110,\n                    32,\n                    72,\n                    105\n                ]\n            },\n            \"descId\": \"BAE593123E0A037F\",\n            \"restrict\": false,\n            \"announce\": true,\n            \"participants\": [\n                {\n                    \"id\": \"628950xxxxx@s.whatsapp.net\",\n                    \"admin\": null\n                },\n                {\n                    \"id\": \"628952xxxxx@s.whatsapp.net\",\n                    \"admin\": \"superadmin\"\n                }\n            ]\n        }\n        \n    }\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/groups/get-participants?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"groups",
+										"get-participants"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 14:14:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed to get group list with participants.\",\n    \"data\": {}\n}"
+						}
+					]
 				}
 			]
 		},
@@ -5037,6 +6700,11 @@
 		{
 			"key": "base_url",
 			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "jid",
+			"value": "120363xxxxxxx",
 			"type": "string"
 		}
 	]
