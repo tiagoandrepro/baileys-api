@@ -271,6 +271,52 @@ const cleanup = () => {
     })
 }
 
+const getGroupsWithParticipants = async (session) => {
+    const groups = await session.groupFetchAllParticipating()
+    return groups
+}
+
+const participantsUpdate = async (session, jid, participants) => {
+    return await session.groupParticipantsUpdate(jid, formatNumberGroup(participants), req.action)
+}
+
+const updateSubject = async (session, jid, subject) => {
+    return await session.groupUpdateSubject(jid, subject)
+}
+
+const updateDescription = async (session, jid, description) => {
+    return await session.groupUpdateDescription(jid, description)
+}
+
+const settingUpdate = async (session, jid, settings) => {
+    return await session.groupSettingUpdate(jid, settings)
+}
+
+const leave = async (session, jid) => {
+    return await session.groupLeave(jid)
+}
+
+const inviteCode = async (session, jid) => {
+    return await session.groupInviteCode(jid)
+}
+
+const revokeInvite = async (session, jid) => {
+    return await session.groupRevokeInvite(jid)
+}
+
+const metaData = async (session, req) => {
+    return await session.groupMetadata(req.groupId)
+}
+
+const acceptInvite = async (session, req) => {
+    return await session.groupAcceptInvite(req.invite)
+}
+
+const profilePicture = async (session, jid, url) => {
+    const image = await downloadImage(url)
+    return await session.updateProfilePicture(jid, { url: image })
+}
+
 const init = () => {
     readdir(sessionsDir(), (err, files) => {
         if (err) {
@@ -298,12 +344,24 @@ export {
     getListSessions,
     deleteSession,
     getChatList,
+    getGroupsWithParticipants,
     isExists,
-    sendMessage,
+    sendMessage,    
     updateProfileStatus,
     updateProfileName,
     formatPhone,
     formatGroup,
     cleanup,
+    participantsUpdate,
+    updateSubject,
+    updateDescription,
+    settingUpdate,
+    leave,
+    inviteCode,
+    revokeInvite,
+    metaData,
+    acceptInvite,
+    profilePicture,
     init,
+
 }

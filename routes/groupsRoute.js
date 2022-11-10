@@ -15,14 +15,26 @@ router.get('/:jid', query('id').notEmpty(), requestValidator, sessionValidator, 
 
 router.get('/meta/:jid', query('id').notEmpty(), requestValidator, sessionValidator, controller.getGroupMetaData)
 
-router.post(
-    '/send',
-    query('id').notEmpty(),
-    body('receiver').notEmpty(),
-    body('message').notEmpty(),
-    requestValidator,
-    sessionValidator,
-    controller.send
-)
+router.post('/participants-update/:jid', query('id').notEmpty(), body('action').notEmpty(), body('participants').notEmpty(), requestValidator, sessionValidator, controller.groupParticipantsUpdate)
+
+router.post('/subject-update/:jid', query('id').notEmpty(), body('subject').notEmpty(), requestValidator, sessionValidator, controller.groupUpdateSubject)
+
+router.post('/description-update/:jid', query('id').notEmpty(), body('description').notEmpty(), requestValidator, sessionValidator, controller.groupUpdateDescription)
+
+router.post('/setting-update/:jid', query('id').notEmpty(), body('settings').notEmpty(), requestValidator, sessionValidator, controller.groupSettingUpdate)
+
+router.post('/leave/:jid', query('id').notEmpty(), requestValidator, sessionValidator, controller.groupLeave)
+
+router.get('/invite-code/:jid', query('id').notEmpty(), requestValidator, sessionValidator, controller.groupInviteCode)
+
+router.post('/accept-invite', query('id').notEmpty(), body('invite').notEmpty(), requestValidator, sessionValidator, controller.groupAcceptInvite)
+
+router.post('/revoke-code/:jid', query('id').notEmpty(), requestValidator, sessionValidator, controller.groupRevokeInvite)
+
+router.post('/send', query('id').notEmpty(), body('receiver').notEmpty(), body('message').notEmpty(), requestValidator, sessionValidator, controller.send)
+
+router.post('/profile-picture', query('id').notEmpty(), body('url').notEmpty(), requestValidator, sessionValidator, controller.updateProfilePicture)
+
+router.get('/get-participants', query('id').notEmpty(), requestValidator, sessionValidator, controller.getListWithoutParticipants)
 
 export default router
