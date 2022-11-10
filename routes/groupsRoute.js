@@ -33,7 +33,7 @@ router.post('/revoke-code/:jid', query('id').notEmpty(), requestValidator, sessi
 
 router.post('/profile-picture/:jid', query('id').notEmpty(), body('url').notEmpty(), requestValidator, sessionValidator, controller.updateProfilePicture)
 
-router.get('/get-participants', query('id').notEmpty(), requestValidator, sessionValidator, controller.getListWithoutParticipants)
+router.post('/get-participants', query('id').notEmpty(), requestValidator, sessionValidator, controller.getListWithoutParticipants)
 
 
 export default router

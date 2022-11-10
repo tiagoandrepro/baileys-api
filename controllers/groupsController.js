@@ -1,4 +1,4 @@
-import { getSession, getChatList, isExists, sendMessage, formatGroup, formatPhone, getGroupsWithParticipants, participantsUpdate, updateSubject, updateDescription,settingUpdate, leave, inviteCode, acceptInvite, revokeInvite, profilePicture } from './../whatsapp.js'
+import { getSession, getChatList, isExists, sendMessage, formatGroup, formatPhone, getGroupsWithParticipants, participantsUpdate, updateSubject, updateDescription, settingUpdate, leave, inviteCode, acceptInvite, revokeInvite, profilePicture } from './../whatsapp.js'
 import response from './../response.js'
 
 const getList = (req, res) => {
@@ -6,14 +6,11 @@ const getList = (req, res) => {
 }
 
 const getListWithoutParticipants = async (req, res) => {
-    console.log("prueba")
     const session = getSession(res.locals.sessionId)
-    console.log(session)
     try {
         const groups = await getGroupsWithParticipants(session)
         return response(res, 200, true, '', groups)
-    } catch (error){
-        console.log(error)
+    } catch {
         response(res, 500, false, 'Failed to get group list with participants.')
     }
 
@@ -176,7 +173,7 @@ const groupAcceptInvite = async (req, res) => {
 
         response(res, 200, true, 'Accept invite successfully.', group)
 
-    } catch (error){
+    } catch (error) {
         console.log(error)
         response(res, 500, false, 'Failed accept invite.')
     }
