@@ -13,6 +13,7 @@ import makeWASocket, {
 import { toDataURL } from 'qrcode'
 import __dirname from './dirname.js'
 import response from './response.js'
+import { downloadImage } from './utils/download.js'
 
 const sessions = new Map()
 const retries = new Map()
@@ -272,12 +273,11 @@ const cleanup = () => {
 }
 
 const getGroupsWithParticipants = async (session) => {
-    const groups = await session.groupFetchAllParticipating()
-    return groups
+    return await session.groupFetchAllParticipating()
 }
 
-const participantsUpdate = async (session, jid, participants) => {
-    return await session.groupParticipantsUpdate(jid, formatNumberGroup(participants), req.action)
+const participantsUpdate = async (session, jid, participants, action) => {
+    return await session.groupParticipantsUpdate(jid, participants, action)
 }
 
 const updateSubject = async (session, jid, subject) => {
@@ -312,8 +312,8 @@ const acceptInvite = async (session, req) => {
     return await session.groupAcceptInvite(req.invite)
 }
 
-const profilePicture = async (session, jid, url) => {
-    const image = await downloadImage(url)
+const profilePicture = async (session, jid, urlImage) => {
+    const image = await downloadImage(urlImage)
     return await session.updateProfilePicture(jid, { url: image })
 }
 
@@ -346,7 +346,7 @@ export {
     getChatList,
     getGroupsWithParticipants,
     isExists,
-    sendMessage,    
+    sendMessage,
     updateProfileStatus,
     updateProfileName,
     formatPhone,

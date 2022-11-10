@@ -31,10 +31,9 @@ router.post('/accept-invite', query('id').notEmpty(), body('invite').notEmpty(),
 
 router.post('/revoke-code/:jid', query('id').notEmpty(), requestValidator, sessionValidator, controller.groupRevokeInvite)
 
-router.post('/send', query('id').notEmpty(), body('receiver').notEmpty(), body('message').notEmpty(), requestValidator, sessionValidator, controller.send)
-
-router.post('/profile-picture', query('id').notEmpty(), body('url').notEmpty(), requestValidator, sessionValidator, controller.updateProfilePicture)
+router.post('/profile-picture/:jid', query('id').notEmpty(), body('url').notEmpty(), requestValidator, sessionValidator, controller.updateProfilePicture)
 
 router.get('/get-participants', query('id').notEmpty(), requestValidator, sessionValidator, controller.getListWithoutParticipants)
+
 
 export default router
