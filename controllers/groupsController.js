@@ -46,6 +46,28 @@ const create = async (req, res) => {
     }
 }
 
+const send = async (req, res) => {
+    const session = getSession(res.locals.sessionId)
+    
+    try {
+        const receiver = formatPhone(req.body.receiver)
+        const { message } = req.body
+        const jid = formatGroup(req.params.jid)
+
+        const exists = await isExists(session, receiver, true)
+
+        if (!exists) {
+            return response(res, 400, false, 'The receiver number is not exists.')
+        }
+
+        await sendMessage(session, receiver, message, 0)
+
+        response(res, 200, true, 'The message has been successfully sent.')
+    } catch {
+        response(res, 500, false, 'Failed to send the message.')
+    }
+}
+
 const groupParticipantsUpdate = async (req, res) => {
     const session = getSession(res.locals.sessionId)
     try {
@@ -219,10 +241,14 @@ const updateProfilePicture = async (req, res) => {
 }
 
 
+
+
+
 export {
     getList,
     getGroupMetaData,
     create,
+    send,
     groupParticipantsUpdate,
     groupUpdateSubject,
     groupUpdateDescription,
