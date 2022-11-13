@@ -161,7 +161,6 @@ const getSession = (sessionId) => {
 }
 
 const getListSessions = () => {
-    console.log(sessions)
     return [...sessions.keys()]
 }
 
@@ -317,6 +316,10 @@ const profilePicture = async (session, jid, urlImage) => {
     return await session.updateProfilePicture(jid, { url: image })
 }
 
+const readMessage = async (session, keys) => {
+    return await session.readMessages(keys)
+}
+
 const init = () => {
     readdir(sessionsDir(), (err, files) => {
         if (err) {
@@ -362,6 +365,7 @@ export {
     metaData,
     acceptInvite,
     profilePicture,
+    readMessage,
     init,
 
 }

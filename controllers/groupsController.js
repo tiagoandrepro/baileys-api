@@ -196,7 +196,6 @@ const groupAcceptInvite = async (req, res) => {
         response(res, 200, true, 'Accept invite successfully.', group)
 
     } catch (error) {
-        console.log(error)
         response(res, 500, false, 'Failed accept invite.')
     }
 }

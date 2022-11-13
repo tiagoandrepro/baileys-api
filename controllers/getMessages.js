@@ -1,4 +1,4 @@
-import { getSession } from '../whatsapp.js'
+import { getSession, formatGroup, formatPhone } from '../whatsapp.js'
 import response from './../response.js'
 
 const getMessages = async (req, res) => {
@@ -6,7 +6,10 @@ const getMessages = async (req, res) => {
 
     /* eslint-disable camelcase */
     const { jid } = req.params
-    const { limit = 25, cursor_id = null, cursor_fromMe = null } = req.query
+    const { limit = 25, cursor_id = null, cursor_fromMe = null, isGroup = false } = req.query
+
+    const isGroupBool = isGroup === 'true'
+    let jid_format = (isGroupBool) ? formatGroup(jid) : formatPhone(jid)
 
     const cursor = {}
 
@@ -23,9 +26,10 @@ const getMessages = async (req, res) => {
         const useCursor = 'before' in cursor ? cursor : null
 
         if (session.isLegacy) {
-            messages = await session.fetchMessagesFromWA(jid, limit, useCursor)
+            messages = await session.fetchMessagesFromWA(jid_format, limit, useCursor)
         } else {
-            messages = await session.store.loadMessages(jid, limit, useCursor)
+            messages = await session.store.loadMessages(jid_format, limit, useCursor)
+     
         }
 
         response(res, 200, true, '', messages)

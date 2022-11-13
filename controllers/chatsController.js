@@ -1,4 +1,4 @@
-import { getSession, getChatList, isExists, sendMessage, formatPhone } from './../whatsapp.js'
+import { getSession, getChatList, isExists, sendMessage, formatPhone, formatGroup, readMessage, getMessageFromStore } from './../whatsapp.js'
 import response from './../response.js'
 
 const getList = (req, res) => {
@@ -7,11 +7,12 @@ const getList = (req, res) => {
 
 const send = async (req, res) => {
     const session = getSession(res.locals.sessionId)
-    const receiver = formatPhone(req.body.receiver)
     const { message } = req.body
+    const isGroup = req.body.isGroup ?? false
+    const receiver = (isGroup) ? formatGroup(req.body.receiver) : formatPhone(req.body.receiver)
 
     try {
-        const exists = await isExists(session, receiver)
+        const exists = await isExists(session, receiver, isGroup)
 
         if (!exists) {
             return response(res, 400, false, 'The receiver number is not exists.')
@@ -74,4 +75,51 @@ const sendBulk = async (req, res) => {
     )
 }
 
-export { getList, send, sendBulk }
+const forward = async (req, res) => {
+    const session = getSession(res.locals.sessionId)
+    const { forward, receiver, isGroup } = req.body
+
+    const { id, remoteJid } = forward
+    let jidFormat = (isGroup) ? formatGroup(receiver) : formatPhone(receiver)
+
+    try {
+
+        let messages
+        if (session.isLegacy) {
+            messages = await session.fetchMessagesFromWA(remoteJid, 25, null)
+        } else {
+            messages = await session.store.loadMessages(remoteJid, 25, null)
+        }
+
+        let key = messages.filter(element => {
+            return element.key.id === id
+        });
+
+        let query_forward = {
+            forward: key[0]
+        }
+
+        await sendMessage(session, jidFormat, query_forward, 0)
+
+        response(res, 200, true, 'The message has been successfully forwarded.')
+    } catch {
+        response(res, 500, false, 'Failed to forward the message.')
+    }
+}
+
+const read = async (req, res) => {
+    const session = getSession(res.locals.sessionId)
+    const { keys } = req.body
+
+    try {
+        await readMessage(session, keys)
+
+        if (!keys[0].id) throw new Error('Data not found')
+
+        response(res, 200, true, 'The message has been successfully marked as read.')
+    } catch {
+        response(res, 500, false, 'Failed to mark the message as read.')
+    }
+}
+
+export { getList, send, sendBulk, read, forward }
