@@ -49,58 +49,54 @@ The server will respond in following JSON format:
 }
 ```
 
-## Sending Message
-
-All send message endpoints is now accept a JSON body, this gives you the ability to send any kind of supported message. You can pass any kind supported message into the `message` property.
-
-Here's some examples:
-
-```javascript
-// Send text message
-{
-    receiver: '628231xxxxx',
-    message: {
-        text: 'Hello there!'
-    }
-}
-
-// Send image
-{
-    receiver: '628231xxxxx',
-    message: {
-        image: {
-            url: 'https://example.com/logo.png'
-        },
-        caption: 'My logo'
-    }
-}
-
-// Send video
-{
-    receiver: '628231xxxxx',
-    message: {
-        video: {
-            url: 'https://example.com/intro.mp4'
-        },
-        caption: 'My intro'
-    }
-}
-
-// Send document
-{
-    receiver: '628231xxxxx',
-    message: {
-        document: {
-            url: 'https://example.com/presentation.pdf'
-        },
-        mimetype: 'application/pdf',
-        fileName: 'presentation-1.pdf'
-    }
-}
-```
-
-For more examples, check out Baileys's docs [here](https://github.com/adiwajshing/Baileys#sending-messages).
-
+##  Available Features
+At this moment we are working to bring more functionalities
+### Sessions
+    * Find Session
+    * Session Status
+    * List Sessions
+	* Create New Session
+	* Delete Session
+### Chats
+    * Get Chat List
+    * Get Conversation
+    * Forward Message
+    * Send Presence Update
+    * Read Message
+    * Send  Bulk Message
+    * Send Message Types
+        => Send Message Text
+        => Send Message Image
+        => Send Message Audio
+        => Send Message Video
+        => Send Message Document
+        => Send Message Gif
+        => Send Message Sticker
+        => Send Message Contact
+        => Send Message Location
+        => Send Message React
+        => Send Message List
+        => Send Message Buttons
+        => Send Message Template
+        => Send Message How To Forward
+### Groups
+    * Get Chat List
+    * Get Conversation
+    * Get Group Metadata
+    * Create Group
+    * Group Update Participants
+    * Group Update Subject
+    * Group Update Description
+    * Group Update Settings
+    * Group Get Invite Code
+    * Group Join Invite Code
+    * Group Revoke Invite Code
+    * Group Update Picture
+    * Group List Without Participants
+### Misc
+    * Update Profile Status
+    * Update Profile Name
+    
 ## Known Issue
 
 Currently there's no known issues. If you find any, please kindly open a new one.
