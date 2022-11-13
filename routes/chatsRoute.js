@@ -19,5 +19,6 @@ router.post('/forward', query('id').notEmpty(), body('forward').notEmpty(), body
 
 router.post('/read', query('id').notEmpty(), body('keys').notEmpty(), requestValidator, sessionValidator, controller.read)
 
+router.post('/send-presence', query('id').notEmpty(), body('receiver').notEmpty(), body('presence').notEmpty(), requestValidator, sessionValidator, controller.sendPresence)
 
 export default router

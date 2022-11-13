@@ -1,4 +1,4 @@
-import { getSession, getChatList, isExists, sendMessage, formatPhone, formatGroup, readMessage, getMessageFromStore } from './../whatsapp.js'
+import { getSession, getChatList, isExists, sendMessage, formatPhone, formatGroup, readMessage } from './../whatsapp.js'
 import response from './../response.js'
 
 const getList = (req, res) => {
@@ -122,4 +122,19 @@ const read = async (req, res) => {
     }
 }
 
-export { getList, send, sendBulk, read, forward }
+const sendPresence = async (req, res) => {
+    const session = getSession(res.locals.sessionId)
+    const { receiver, isGroup, presence } = req.body
+
+    try {
+        let jidFormat = (isGroup) ? formatGroup(receiver) : formatPhone(receiver)
+
+        await session.sendPresenceUpdate(presence, jidFormat)
+
+        response(res, 200, true, 'Presence has been successfully sent.')
+    } catch {
+        response(res, 500, false, 'Failed to send presence.')
+    }
+}
+
+export { getList, send, sendBulk, read, forward, sendPresence }
