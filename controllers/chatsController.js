@@ -75,6 +75,20 @@ const sendBulk = async (req, res) => {
     )
 }
 
+const deleteChat = async (req, res) => {
+    const session = getSession(res.locals.sessionId)
+    const { receiver, isGroup, message } = req.body
+
+    try {
+        let jidFormat = (isGroup) ? formatGroup(receiver) : formatPhone(receiver)
+
+        await sendMessage(session, jidFormat, { delete: message })
+        response(res, 200, true, 'Message has been successfully deleted.')
+    } catch {
+        response(res, 500, false, 'Failed to delete message .')
+    }
+}
+
 const forward = async (req, res) => {
     const session = getSession(res.locals.sessionId)
     const { forward, receiver, isGroup } = req.body
@@ -137,4 +151,4 @@ const sendPresence = async (req, res) => {
     }
 }
 
-export { getList, send, sendBulk, read, forward, sendPresence }
+export { getList, send, sendBulk, deleteChat, read, forward, sendPresence }
