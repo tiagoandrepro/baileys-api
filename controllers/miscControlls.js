@@ -22,6 +22,19 @@ const setProfileName = async (req, res) => {
     }
 }
 
+const getProfile = async (req, res) => {
+    try {
+        const session = getSession(res.locals.sessionId)
+
+        session.user.phone = session.user.id.split(":")[0].split("@")[0];
+        session.user.image = await session.profilePictureUrl(session.user.id,'image');
+        session.user.status =  await session.fetchStatus(session.user.phone + "@s.whatsapp.net");
+
+        response(res, 200, true, 'The information has been obtained successfully.', session.user)
+    } catch {
+        response(res, 500, false, 'Could not get the information')
+    }
+}
 
 
-export { setProfileStatus, setProfileName }
+export { setProfileStatus, setProfileName, getProfile }
