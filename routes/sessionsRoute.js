@@ -6,6 +6,8 @@ import * as controller from './../controllers/sessionsController.js'
 
 const router = Router()
 
+router.get('/list', requestValidator, controller.list)
+
 router.get('/find/:id', sessionValidator, controller.find)
 
 router.get('/status/:id', sessionValidator, controller.status)
