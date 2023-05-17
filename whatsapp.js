@@ -2,9 +2,8 @@ import { rmSync, readdir } from 'fs'
 import { join } from 'path'
 import pino from 'pino'
 import makeWASocket, {
-    makeWALegacySocket,
+
     useMultiFileAuthState,
-    useSingleFileLegacyAuthState,
     makeInMemoryStore,
     Browsers,
     DisconnectReason,
@@ -75,7 +74,7 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
     /**
      * @type {import('@adiwajshing/baileys').AnyWASocket}
      */
-    const wa = isLegacy ? makeWALegacySocket(waConfig) : makeWASocket.default(waConfig)
+    const wa =  makeWASocket.default(waConfig)
 
     if (!isLegacy) {
         store.readFromFile(sessionsDir(`${sessionId}_store.json`))
@@ -304,7 +303,14 @@ const leave = async (session, jid) => {
     return await session.groupLeave(jid)
 }
 
+const participantsUpdate = async (session, req) => {
+    return await session.groupParticipantsUpdate(req.groupId, req.members, req.action)
+}
+
+
+
 export {
+    participantsUpdate,
     isSessionExists,
     createSession,
     getSession,

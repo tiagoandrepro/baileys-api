@@ -31,4 +31,8 @@ router.get('/code/:jid', query('id').notEmpty(), requestValidator, sessionValida
 
 router.post('/leave/:jid', query('id').notEmpty(), requestValidator, sessionValidator,  controller.groupLeave)
 
+router.post('/participants-update', query('id').notEmpty(), requestValidator, sessionValidator,  controller.groupParticipantsUpdate)
+
+
+
 export default router

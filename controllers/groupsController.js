@@ -1,4 +1,4 @@
-import { getSession, getChatList, isExists, sendMessage, formatGroup, inviteCode, getGroupsWithParticipants, leave } from './../whatsapp.js'
+import { getSession, getChatList, isExists, sendMessage, formatGroup, inviteCode, getGroupsWithParticipants, leave, participantsUpdate } from './../whatsapp.js'
 import response from './../response.js'
 
 /*const getList = (req, res) => {
@@ -91,4 +91,24 @@ const groupLeave = async (req, res) => {
     }
 }
 
-export { getList, getGroupMetaData, send, groupInviteCode, groupLeave }
+
+const groupParticipantsUpdate = async (req, res) => {
+    const session = getSession(res.locals.sessionId)
+  //  console.log(res.locals.sessionId)
+    try {
+        const exists = await isExists(session, req.body.groupId)
+        console.log(req.body.groupId)
+
+
+
+        await participantsUpdate(session, req.body)
+
+        response(res, 200, true, 'Update participants successfully.')
+
+    } catch {
+        response(res, 500, false, 'Failed update participants.')
+    }
+}
+
+
+export { getList, getGroupMetaData, send, groupInviteCode, groupLeave, groupParticipantsUpdate }
