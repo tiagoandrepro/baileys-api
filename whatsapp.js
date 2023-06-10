@@ -68,6 +68,7 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
         auth: state,
         printQRInTerminal: true,
         logger,
+        version: [2,2323,4],
         browser: Browsers.ubuntu('Chrome'),
     }
 
