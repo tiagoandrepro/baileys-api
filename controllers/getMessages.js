@@ -22,15 +22,9 @@ const getMessages = async (req, res) => {
     /* eslint-enable camelcase */
 
     try {
-        let messages
-        const useCursor = 'before' in cursor ? cursor : null
 
-        if (session.isLegacy) {
-            messages = await session.fetchMessagesFromWA(jid_format, limit, useCursor)
-        } else {
-            messages = await session.store.loadMessages(jid_format, limit, useCursor)
-     
-        }
+        const useCursor = 'before' in cursor ? cursor : null
+        let messages = await session.store.loadMessages(jid_format, limit, useCursor)
 
         response(res, 200, true, '', messages)
     } catch {

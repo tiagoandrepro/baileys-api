@@ -2,18 +2,20 @@ import { rmSync, readdir } from 'fs'
 import { join } from 'path'
 import pino from 'pino'
 import makeWASocket, {
-    makeWALegacySocket,
     useMultiFileAuthState,
-    useSingleFileLegacyAuthState,
     makeInMemoryStore,
+    makeCacheableSignalKeyStore,
     Browsers,
     DisconnectReason,
     delay,
-} from '@adiwajshing/baileys'
+    downloadMediaMessage,
+    getAggregateVotesInPollMessage
+} from '@whiskeysockets/baileys'
 import { toDataURL } from 'qrcode'
 import __dirname from './dirname.js'
 import response from './response.js'
 import { downloadImage } from './utils/download.js'
+import axios from 'axios'
 
 const sessions = new Map()
 const retries = new Map()
@@ -26,13 +28,17 @@ const isSessionExists = (sessionId) => {
     return sessions.has(sessionId)
 }
 
+const isSessionConnected = (sessionId) => {
+    return sessions.get(sessionId)?.ws?.socket?.readyState === 1 ? true : false
+}
+
 const shouldReconnect = (sessionId) => {
     let maxRetries = parseInt(process.env.MAX_RETRIES ?? 0)
     let attempts = retries.get(sessionId) ?? 0
 
-    maxRetries = maxRetries < 1 ? 1 : maxRetries
+    // maxRetries = maxRetries < 1 ? 1 : maxRetries
 
-    if (attempts < maxRetries) {
+    if (attempts < maxRetries || maxRetries === -1) {
         ++attempts
 
         console.log('Reconnecting...', { attempts, sessionId })
@@ -44,66 +50,110 @@ const shouldReconnect = (sessionId) => {
     return false
 }
 
-const createSession = async (sessionId, isLegacy = false, res = null) => {
-    const sessionFile = (isLegacy ? 'legacy_' : 'md_') + sessionId + (isLegacy ? '.json' : '')
+const webhook = async (instance, type, data) => {
+    if (process.env.APP_WEBHOOK_URL)
+        axios
+            .post(`${process.env.APP_WEBHOOK_URL}`, {
+                instance,
+                type,
+                data,
+            })
+            .then((success) => {
+                return success
+            })
+            .catch((error) => {
+                console.log(error)
+                return error
+            })
+}
 
-    const logger = pino({ level: 'warn' })
+const createSession = async (sessionId, res = null) => {
+    const sessionFile = 'md_' + sessionId
+
+    const logger = pino({ level: 'debug' })
     const store = makeInMemoryStore({ logger })
 
     let state, saveState
 
-    if (isLegacy) {
-        ; ({ state, saveState } = useSingleFileLegacyAuthState(sessionsDir(sessionFile)))
-    } else {
-        ; ({ state, saveCreds: saveState } = await useMultiFileAuthState(sessionsDir(sessionFile)))
-    }
+    ({ state, saveCreds: saveState } = await useMultiFileAuthState(sessionsDir(sessionFile)))
+
 
     /**
-     * @type {import('@adiwajshing/baileys').CommonSocketConfig}
+     * @type {import('@whiskeysockets/baileys').CommonSocketConfig}
      */
     const waConfig = {
-        auth: state,
-        printQRInTerminal: true,
+        printQRInTerminal: false,
+        auth: {
+            creds: state.creds,
+            keys: makeCacheableSignalKeyStore(state.keys, logger),
+        },
         logger,
         browser: Browsers.ubuntu('Chrome'),
+        patchMessageBeforeSending: (message) => {
+            const requiresPatch = !!(
+                message.buttonsMessage ||
+                message.templateMessage ||
+                message.listMessage
+            )
+            if (requiresPatch) {
+                console.log('patching message', JSON.stringify(message))
+                message = {
+                viewOnceMessage: {
+                    message: {
+                    messageContextInfo: {
+                        deviceListMetadataVersion: 2,
+                        deviceListMetadata: {},
+                    },
+                    ...message,
+                    },
+                },
+                }
+            }
+
+            return message
+        },
+        getMessage
     }
 
     /**
-     * @type {import('@adiwajshing/baileys').AnyWASocket}
+     * @type {import('@whiskeysockets/baileys').AnyWASocket}
      */
-    const wa = isLegacy ? makeWALegacySocket(waConfig) : makeWASocket.default(waConfig)
+    const wa = makeWASocket.default(waConfig)
 
-    if (!isLegacy) {
-        store.readFromFile(sessionsDir(`${sessionId}_store.json`))
-        store.bind(wa.ev)
-    }
+    store.readFromFile(sessionsDir(`${sessionId}_store.json`))
+    store.bind(wa.ev)
 
-    sessions.set(sessionId, { ...wa, store, isLegacy })
+    sessions.set(sessionId, { ...wa, store })
 
     wa.ev.on('creds.update', saveState)
 
     wa.ev.on('chats.set', ({ chats }) => {
-        if (isLegacy) {
-            store.chats.insertIfAbsent(...chats)
-        }
+        console.log('chats.set', chats)
     })
 
     // Automatically read incoming messages, uncomment below codes to enable this behaviour
-    /*
     wa.ev.on('messages.upsert', async (m) => {
-        const message = m.messages[0]
+        let messages = m.messages.filter(m => m.key.fromMe === false)
+        if (messages.length > 0)
+            webhook(sessionId, 'messages/upsert', messages)
+    })
 
-        if (!message.key.fromMe && m.type === 'notify') {
-            await delay(1000)
-
-            if (isLegacy) {
-                await wa.chatRead(message.key, 1)
-            } else {
-                await wa.sendReadReceipt(message.key.remoteJid, message.key.participant, [message.key.id])
+    wa.ev.on('messages.update', async (m) => {
+        console.log('messages.update', JSON.stringify(m))
+        for (const { key, messageTimestamp, pushName, broadcast, update } of m) {
+            if (update.pollUpdates) {
+                const pollCreation = await getMessage(key)
+                if (pollCreation) {
+                    const pollMessage = await getAggregateVotesInPollMessage({
+                        message: pollCreation,
+                        pollUpdates: update.pollUpdates,
+                    })
+                    update.pollUpdates[0].vote = pollMessage
+                    webhook(sessionId, 'messages/update', [{ key, messageTimestamp, pushName, broadcast, update }])
+                }
             }
         }
     })
-    */
 
     wa.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect } = update
@@ -119,12 +169,12 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
                     response(res, 500, false, 'Unable to create session.')
                 }
 
-                return deleteSession(sessionId, isLegacy)
+                return deleteSession(sessionId)
             }
 
             setTimeout(
                 () => {
-                    createSession(sessionId, isLegacy, res)
+                    createSession(sessionId, res)
                 },
                 statusCode === DisconnectReason.restartRequired ? 0 : parseInt(process.env.RECONNECT_INTERVAL ?? 0)
             )
@@ -147,14 +197,23 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
                 await wa.logout()
             } catch {
             } finally {
-                deleteSession(sessionId, isLegacy)
+                deleteSession(sessionId)
             }
         }
     })
+
+    async function getMessage(key) {
+        if (store) {
+            const msg = await store.loadMessage(key.remoteJid, key.id)
+            return msg?.message || undefined
+        }
+        // only if store is present
+        return proto.Message.fromObject({})
+    }
 }
 
 /**
- * @returns {(import('@adiwajshing/baileys').AnyWASocket|null)}
+ * @returns {(import('@whiskeysockets/baileys').AnyWASocket|null)}
  */
 const getSession = (sessionId) => {
     return sessions.get(sessionId) ?? null
@@ -164,8 +223,8 @@ const getListSessions = () => {
     return [...sessions.keys()]
 }
 
-const deleteSession = (sessionId, isLegacy = false) => {
-    const sessionFile = (isLegacy ? 'legacy_' : 'md_') + sessionId + (isLegacy ? '.json' : '')
+const deleteSession = (sessionId) => {
+    const sessionFile = 'md_' + sessionId
     const storeFile = `${sessionId}_store.json`
     const rmOptions = { force: true, recursive: true }
 
@@ -185,7 +244,7 @@ const getChatList = (sessionId, isGroup = false) => {
 }
 
 /**
- * @param {import('@adiwajshing/baileys').AnyWASocket} session
+ * @param {import('@whiskeysockets/baileys').AnyWASocket} session
  */
 const isExists = async (session, jid, isGroup = false) => {
     try {
@@ -197,11 +256,7 @@ const isExists = async (session, jid, isGroup = false) => {
             return Boolean(result.id)
         }
 
-        if (session.isLegacy) {
-            result = await session.onWhatsApp(jid)
-        } else {
-            ;[result] = await session.onWhatsApp(jid)
-        }
+        [result] = await session.onWhatsApp(jid)
 
         return result.exists
     } catch {
@@ -210,7 +265,7 @@ const isExists = async (session, jid, isGroup = false) => {
 }
 
 /**
- * @param {import('@adiwajshing/baileys').AnyWASocket} session
+ * @param {import('@whiskeysockets/baileys').AnyWASocket} session
  */
 const sendMessage = async (session, receiver, message, delayMs = 1000) => {
     try {
@@ -223,7 +278,7 @@ const sendMessage = async (session, receiver, message, delayMs = 1000) => {
 }
 
 /**
- * @param {import('@adiwajshing/baileys').AnyWASocket} session
+ * @param {import('@whiskeysockets/baileys').AnyWASocket} session
  */
 const updateProfileStatus = async (session, status) => {
     try {
@@ -265,9 +320,7 @@ const cleanup = () => {
     console.log('Running cleanup before exit.')
 
     sessions.forEach((session, sessionId) => {
-        if (!session.isLegacy) {
-            session.store.writeToFile(sessionsDir(`${sessionId}_store.json`))
-        }
+        session.store.writeToFile(sessionsDir(`${sessionId}_store.json`))
     })
 }
 
@@ -320,6 +373,37 @@ const readMessage = async (session, keys) => {
     return await session.readMessages(keys)
 }
 
+const getStoreMessage = async (session, messageId, remoteJid) => {
+    try {
+        return await session.store.loadMessage(remoteJid, messageId)
+    } catch {
+        return Promise.reject(null)
+    }
+}
+
+const getMessageMedia = async (session, message) => {
+    try {
+        const messageType = Object.keys(message.message)[0];
+        const mediaMessage = message.message[messageType];
+        const buffer = await downloadMediaMessage(message, 'buffer', {}, { reuploadRequest: session.updateMediaMessage });
+
+        return {
+            messageType: messageType,
+            fileName: mediaMessage.fileName ?? '',
+            caption: mediaMessage.caption ?? '',
+            size: {
+                fileLength: mediaMessage.fileLength,
+                height: mediaMessage.height ?? 0,
+                width: mediaMessage.width ?? 0,
+            },
+            mimetype: mediaMessage.mimetype,
+            base64: buffer.toString('base64')
+        };
+    } catch (error) {
+        return Promise.reject(null)
+    }
+}
+
 const init = () => {
     readdir(sessionsDir(), (err, files) => {
         if (err) {
@@ -332,10 +416,9 @@ const init = () => {
             }
 
             const filename = file.replace('.json', '')
-            const isLegacy = filename.split('_', 1)[0] !== 'md'
-            const sessionId = filename.substring(isLegacy ? 7 : 3)
+            const sessionId = filename.substring(3)
 
-            createSession(sessionId, isLegacy)
+            createSession(sessionId)
         }
     })
 }
@@ -367,5 +450,7 @@ export {
     profilePicture,
     readMessage,
     init,
-
+    isSessionConnected,
+    getMessageMedia,
+    getStoreMessage
 }

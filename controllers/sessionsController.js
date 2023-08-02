@@ -9,10 +9,10 @@ const status = (req, res) => {
     const states = ['connecting', 'connected', 'disconnecting', 'disconnected']
 
     const session = getSession(res.locals.sessionId)
-    let state = states[session.ws.readyState]
+    let state = states[session.ws?.socket?.readyState]
 
     state =
-        state === 'connected' && typeof (session.isLegacy ? session.state.legacy.user : session.user) !== 'undefined'
+        state === 'connected' && typeof session.user !== 'undefined'
             ? 'authenticated'
             : state
 
@@ -20,24 +20,25 @@ const status = (req, res) => {
 }
 
 const add = (req, res) => {
-    const { id, isLegacy } = req.body
+    const { id } = req.body
 
     if (isSessionExists(id)) {
         return response(res, 409, false, 'Session already exists, please use another id.')
     }
 
-    createSession(id, isLegacy === 'true', res)
+    createSession(id, res)
 }
 
 const del = async (req, res) => {
     const { id } = req.params
     const session = getSession(id)
-
     try {
         await session.logout()
+        session.end()
+        session.ws.close()
     } catch {
     } finally {
-        deleteSession(id, session.isLegacy)
+        deleteSession(id)
     }
 
     response(res, 200, true, 'The session has been successfully deleted.')

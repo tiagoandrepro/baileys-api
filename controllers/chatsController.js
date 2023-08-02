@@ -1,5 +1,6 @@
-import { getSession, getChatList, isExists, sendMessage, formatPhone, formatGroup, readMessage } from './../whatsapp.js'
+import { getSession, getChatList, isExists, sendMessage, formatPhone, formatGroup, readMessage, getMessageMedia, getStoreMessage } from './../whatsapp.js'
 import response from './../response.js'
+import { compareAndFilter, fileExists, isUrlValid } from './../utils/functions.js'
 
 const getList = (req, res) => {
     return response(res, 200, true, '', getChatList(res.locals.sessionId))
@@ -11,11 +12,28 @@ const send = async (req, res) => {
     const isGroup = req.body.isGroup ?? false
     const receiver = (isGroup) ? formatGroup(req.body.receiver) : formatPhone(req.body.receiver)
 
+    const types_message = ['image', 'video', 'audio', 'document', 'sticker'];
+
+    const filter_type_messaje = compareAndFilter(Object.keys(message), types_message);
     try {
         const exists = await isExists(session, receiver, isGroup)
 
         if (!exists) {
             return response(res, 400, false, 'The receiver number is not exists.')
+        }
+
+        if (filter_type_messaje.length > 0) {
+            let url = message[filter_type_messaje]['url']
+
+            if (url.length === undefined || url.length === 0) {
+                return response(res, 400, false, 'The URL is invalid or empty.')
+            }
+
+            if (!isUrlValid(url)) {
+                if (!fileExists(url)) {
+                    return response(res, 400, false, 'The file or url does not exist.')
+                }
+            }
         }
 
         await sendMessage(session, receiver, message, 0)
@@ -34,8 +52,7 @@ const sendBulk = async (req, res) => {
         let { receiver, message, delay } = data
 
         if (!receiver || !message) {
-            errors.push(key)
-
+            errors.push({ key, message: 'The receiver number is not exists.' })
             continue
         }
 
@@ -49,14 +66,13 @@ const sendBulk = async (req, res) => {
             const exists = await isExists(session, receiver)
 
             if (!exists) {
-                errors.push(key)
-
+                errors.push({ key, message: 'number not exists on whatsapp' })
                 continue
             }
 
             await sendMessage(session, receiver, message, delay)
-        } catch {
-            errors.push(key)
+        } catch (err) {
+            errors.push({ key, message: err.message })
         }
     }
 
@@ -98,12 +114,7 @@ const forward = async (req, res) => {
 
     try {
 
-        let messages
-        if (session.isLegacy) {
-            messages = await session.fetchMessagesFromWA(remoteJid, 25, null)
-        } else {
-            messages = await session.store.loadMessages(remoteJid, 25, null)
-        }
+        let messages = await session.store.loadMessages(remoteJid, 25, null)
 
         let key = messages.filter(element => {
             return element.key.id === id
@@ -151,4 +162,20 @@ const sendPresence = async (req, res) => {
     }
 }
 
-export { getList, send, sendBulk, deleteChat, read, forward, sendPresence }
+const downloadMedia = async (req, res) => {
+    const session = getSession(res.locals.sessionId)
+    const { remoteJid, messageId } = req.body
+
+    try {
+        const message = await getStoreMessage(session, messageId, remoteJid)
+        const dataMessage = await getMessageMedia(session, message)
+
+        response(res, 200, true, 'Message downloaded successfully', dataMessage)
+    } catch {        
+        response(res, 500, false, 'Error downloading multimedia message: it may not exist or may not contain multimedia content.')
+    }
+
+}
+
+
+export { getList, send, sendBulk, deleteChat, read, forward, sendPresence, downloadMedia }

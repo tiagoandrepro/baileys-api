@@ -23,6 +23,7 @@ router.post('/read', query('id').notEmpty(), body('keys').notEmpty(), requestVal
 
 router.post('/send-presence', query('id').notEmpty(), body('receiver').notEmpty(), body('presence').notEmpty(), requestValidator, sessionValidator, controller.sendPresence)
 
+router.post('/download-media', query('id').notEmpty(), body('remoteJid').notEmpty(), body('messageId').notEmpty(), requestValidator, sessionValidator, controller.downloadMedia)
 
 
 export default router
