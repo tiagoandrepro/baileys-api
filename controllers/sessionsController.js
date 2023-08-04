@@ -26,7 +26,7 @@ const add = (req, res) => {
         return response(res, 409, false, 'Session already exists, please use another id.')
     }
 
-    if (!['qr', 'code'].includes(typeAuth)) {
+    if (!['qr', 'code'].includes(typeAuth) && typeAuth !== undefined) {
         return response(res, 400, false, 'typeAuth must be qr or code.')
     }
 
