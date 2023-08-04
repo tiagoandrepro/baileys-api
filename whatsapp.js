@@ -1,4 +1,4 @@
-import { rmSync, readdir } from 'fs'
+import { rmSync, readdir, existsSync } from 'fs'
 import { join } from 'path'
 import pino from 'pino'
 import makeWASocket, {
@@ -9,13 +9,18 @@ import makeWASocket, {
     DisconnectReason,
     delay,
     downloadMediaMessage,
-    getAggregateVotesInPollMessage
+    getAggregateVotesInPollMessage,
+    fetchLatestBaileysVersion
 } from '@whiskeysockets/baileys'
 import { toDataURL } from 'qrcode'
 import __dirname from './dirname.js'
 import response from './response.js'
 import { downloadImage } from './utils/download.js'
 import axios from 'axios'
+import NodeCache from 'node-cache'
+
+
+const msgRetryCounterCache = new NodeCache()
 
 const sessions = new Map()
 const retries = new Map()
@@ -67,65 +72,62 @@ const webhook = async (instance, type, data) => {
             })
 }
 
-const createSession = async (sessionId, res = null) => {
+const createSession = async (sessionId, res = null, options = { usePairingCode: false, phoneNumber: '' }) => {
     const sessionFile = 'md_' + sessionId
 
-    const logger = pino({ level: 'debug' })
+    const logger = pino({ level: 'fatal' })
     const store = makeInMemoryStore({ logger })
 
-    let state, saveState
+    const { state, saveCreds } = await useMultiFileAuthState(sessionsDir(sessionFile))
 
-    ({ state, saveCreds: saveState } = await useMultiFileAuthState(sessionsDir(sessionFile)))
+    // fetch latest version of WA Web
+    const { version, isLatest } = await fetchLatestBaileysVersion()
+    console.log(`using WA v${version.join('.')}, isLatest: ${isLatest}`)
+    // load store
+    store?.readFromFile(sessionsDir(sessionFile) + '/baileys_store_multi.json')
 
+    // save every 10s
+    setInterval(() => {
+        //check exist file sessionsDir(sessionFile) + '/baileys_store_multi.json'
+        if (existsSync(sessionsDir(sessionFile) + '/baileys_store_multi.json')) {
+            store?.writeToFile(sessionsDir(sessionFile) + '/baileys_store_multi.json')
+        }
+    }, 10_000)
 
     /**
-     * @type {import('@whiskeysockets/baileys').CommonSocketConfig}
+     * @type {import('@whiskeysockets/baileys').AnyWASocket}
      */
-    const waConfig = {
+    const wa = makeWASocket.default({
+        version,
         printQRInTerminal: false,
+        mobile: false,
         auth: {
             creds: state.creds,
             keys: makeCacheableSignalKeyStore(state.keys, logger),
         },
         logger,
+        msgRetryCounterCache,
+        generateHighQualityLinkPreview: true,
         browser: Browsers.ubuntu('Chrome'),
-        patchMessageBeforeSending: (message) => {
-            const requiresPatch = !!(
-                message.buttonsMessage ||
-                message.templateMessage ||
-                message.listMessage
-            )
-            if (requiresPatch) {
-                console.log('patching message', JSON.stringify(message))
-                message = {
-                viewOnceMessage: {
-                    message: {
-                    messageContextInfo: {
-                        deviceListMetadataVersion: 2,
-                        deviceListMetadata: {},
-                    },
-                    ...message,
-                    },
-                },
-                }
-            }
-
-            return message
-        },
         getMessage
-    }
-
-    /**
-     * @type {import('@whiskeysockets/baileys').AnyWASocket}
-     */
-    const wa = makeWASocket.default(waConfig)
-
-    store.readFromFile(sessionsDir(`${sessionId}_store.json`))
-    store.bind(wa.ev)
+    })
+    store?.bind(wa.ev)
 
     sessions.set(sessionId, { ...wa, store })
 
-    wa.ev.on('creds.update', saveState)
+    if (options.usePairingCode && !wa.authState.creds.registered) {
+        if (!wa.authState.creds.account) {
+            await wa.waitForConnectionUpdate((update) => !!update.qr)
+            const code = await wa.requestPairingCode(options.phoneNumber)
+            if (res && !res.headersSent && code !== undefined) {
+                response(res, 200, true, 'Verify on your phone and enter the provided code.', { code })
+            }else{
+                response(res, 500, false, 'Unable to create session.')
+            }
+        }
+    }
+
+    wa.ev.on('creds.update', saveCreds)
 
     wa.ev.on('chats.set', ({ chats }) => {
         console.log('chats.set', chats)
@@ -417,7 +419,7 @@ const init = () => {
 
             const filename = file.replace('.json', '')
             const sessionId = filename.substring(3)
-
+            console.log('Recovering session: ' + sessionId)
             createSession(sessionId)
         }
     })

@@ -56,6 +56,8 @@ At this moment we are working to bring more functionalities
     * Session Status
     * List Sessions
 	* Create New Session
+        => QR method (Default)
+        => Pairing Code method
 	* Delete Session
 ### Chats
     * Get Chat List

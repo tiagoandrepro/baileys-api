@@ -20,13 +20,23 @@ const status = (req, res) => {
 }
 
 const add = (req, res) => {
-    const { id } = req.body
+    const { id, typeAuth, phoneNumber } = req.body
 
     if (isSessionExists(id)) {
         return response(res, 409, false, 'Session already exists, please use another id.')
     }
 
-    createSession(id, res)
+    if (!['qr', 'code'].includes(typeAuth)) {
+        return response(res, 400, false, 'typeAuth must be qr or code.')
+    }
+
+    const usePairingCode = (typeAuth === 'code') ? true : false
+
+    if (usePairingCode && !phoneNumber) {
+        return response(res, 400, false, 'phoneNumber is required.')
+    }
+
+    createSession(id, res, { usePairingCode: usePairingCode, phoneNumber: phoneNumber })
 }
 
 const del = async (req, res) => {
