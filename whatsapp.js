@@ -5,7 +5,6 @@ import makeWASocket, {
     useMultiFileAuthState,
     makeInMemoryStore,
     makeCacheableSignalKeyStore,
-    Browsers,
     DisconnectReason,
     delay,
     downloadMediaMessage,
@@ -108,7 +107,7 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
         logger,
         msgRetryCounterCache,
         generateHighQualityLinkPreview: true,
-        browser: Browsers.ubuntu('Chrome'),
+        browser: ['Chrome (Linux)', '', ''],
         getMessage
     })
     store?.bind(wa.ev)
