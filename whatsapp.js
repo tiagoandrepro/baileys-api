@@ -10,8 +10,10 @@ import makeWASocket, {
     downloadMediaMessage,
     getAggregateVotesInPollMessage,
     fetchLatestBaileysVersion,
-    proto,
 } from '@whiskeysockets/baileys'
+
+import proto from '@whiskeysockets/baileys'
+
 import { toDataURL } from 'qrcode'
 import __dirname from './dirname.js'
 import response from './response.js'
@@ -73,7 +75,7 @@ const webhook = async (instance, type, data) => {
 const createSession = async (sessionId, res = null, options = { usePairingCode: false, phoneNumber: '' }) => {
     const sessionFile = 'md_' + sessionId
 
-    const logger = pino({ level: 'fatal' })
+    const logger = pino({ level: 'silent' })
     const store = makeInMemoryStore({ logger })
 
     const { state, saveCreds } = await useMultiFileAuthState(sessionsDir(sessionFile))
@@ -144,7 +146,6 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
     })
 
     wa.ev.on('messages.update', async (m) => {
-        console.log('messages.update', JSON.stringify(m))
         for (const { key, messageTimestamp, pushName, broadcast, update } of m) {
             if (update.pollUpdates) {
                 const pollCreation = await getMessage(key)
