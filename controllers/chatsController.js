@@ -1,4 +1,14 @@
-import { getSession, getChatList, isExists, sendMessage, formatPhone, formatGroup, readMessage, getMessageMedia, getStoreMessage } from './../whatsapp.js'
+import {
+    getSession,
+    getChatList,
+    isExists,
+    sendMessage,
+    formatPhone,
+    formatGroup,
+    readMessage,
+    getMessageMedia,
+    getStoreMessage,
+} from './../whatsapp.js'
 import response from './../response.js'
 import { compareAndFilter, fileExists, isUrlValid } from './../utils/functions.js'
 
@@ -10,11 +20,11 @@ const send = async (req, res) => {
     const session = getSession(res.locals.sessionId)
     const { message } = req.body
     const isGroup = req.body.isGroup ?? false
-    const receiver = (isGroup) ? formatGroup(req.body.receiver) : formatPhone(req.body.receiver)
+    const receiver = isGroup ? formatGroup(req.body.receiver) : formatPhone(req.body.receiver)
 
-    const types_message = ['image', 'video', 'audio', 'document', 'sticker'];
+    const typesMessage = ['image', 'video', 'audio', 'document', 'sticker']
 
-    const filter_type_messaje = compareAndFilter(Object.keys(message), types_message);
+    const filterTypeMessaje = compareAndFilter(Object.keys(message), typesMessage)
     try {
         const exists = await isExists(session, receiver, isGroup)
 
@@ -22,8 +32,8 @@ const send = async (req, res) => {
             return response(res, 400, false, 'The receiver number is not exists.')
         }
 
-        if (filter_type_messaje.length > 0) {
-            let url = message[filter_type_messaje]['url']
+        if (filterTypeMessaje.length > 0) {
+            const url = message[filterTypeMessaje]?.url
 
             if (url.length === undefined || url.length === 0) {
                 return response(res, 400, false, 'The URL is invalid or empty.')
@@ -96,7 +106,7 @@ const deleteChat = async (req, res) => {
     const { receiver, isGroup, message } = req.body
 
     try {
-        let jidFormat = (isGroup) ? formatGroup(receiver) : formatPhone(receiver)
+        const jidFormat = isGroup ? formatGroup(receiver) : formatPhone(receiver)
 
         await sendMessage(session, jidFormat, { delete: message })
         response(res, 200, true, 'Message has been successfully deleted.')
@@ -110,21 +120,20 @@ const forward = async (req, res) => {
     const { forward, receiver, isGroup } = req.body
 
     const { id, remoteJid } = forward
-    let jidFormat = (isGroup) ? formatGroup(receiver) : formatPhone(receiver)
+    const jidFormat = isGroup ? formatGroup(receiver) : formatPhone(receiver)
 
     try {
+        const messages = await session.store.loadMessages(remoteJid, 25, null)
 
-        let messages = await session.store.loadMessages(remoteJid, 25, null)
-
-        let key = messages.filter(element => {
+        const key = messages.filter((element) => {
             return element.key.id === id
-        });
+        })
 
-        let query_forward = {
-            forward: key[0]
+        const queryForward = {
+            forward: key[0],
         }
 
-        await sendMessage(session, jidFormat, query_forward, 0)
+        await sendMessage(session, jidFormat, queryForward, 0)
 
         response(res, 200, true, 'The message has been successfully forwarded.')
     } catch {
@@ -139,7 +148,9 @@ const read = async (req, res) => {
     try {
         await readMessage(session, keys)
 
-        if (!keys[0].id) throw new Error('Data not found')
+        if (!keys[0].id) {
+            throw new Error('Data not found')
+        }
 
         response(res, 200, true, 'The message has been successfully marked as read.')
     } catch {
@@ -152,7 +163,7 @@ const sendPresence = async (req, res) => {
     const { receiver, isGroup, presence } = req.body
 
     try {
-        let jidFormat = (isGroup) ? formatGroup(receiver) : formatPhone(receiver)
+        const jidFormat = isGroup ? formatGroup(receiver) : formatPhone(receiver)
 
         await session.sendPresenceUpdate(presence, jidFormat)
 
@@ -171,11 +182,14 @@ const downloadMedia = async (req, res) => {
         const dataMessage = await getMessageMedia(session, message)
 
         response(res, 200, true, 'Message downloaded successfully', dataMessage)
-    } catch {        
-        response(res, 500, false, 'Error downloading multimedia message: it may not exist or may not contain multimedia content.')
+    } catch {
+        response(
+            res,
+            500,
+            false,
+            'Error downloading multimedia message: it may not exist or may not contain multimedia content.'
+        )
     }
-
 }
-
 
 export { getList, send, sendBulk, deleteChat, read, forward, sendPresence, downloadMedia }

@@ -11,10 +11,7 @@ const status = (req, res) => {
     const session = getSession(res.locals.sessionId)
     let state = states[session.ws?.socket?.readyState]
 
-    state =
-        state === 'connected' && typeof session.user !== 'undefined'
-            ? 'authenticated'
-            : state
+    state = state === 'connected' && typeof session.user !== 'undefined' ? 'authenticated' : state
 
     response(res, 200, true, '', { status: state })
 }
@@ -30,13 +27,13 @@ const add = (req, res) => {
         return response(res, 400, false, 'typeAuth must be qr or code.')
     }
 
-    const usePairingCode = (typeAuth === 'code') ? true : false
+    const usePairingCode = typeAuth === 'code'
 
     if (usePairingCode && !phoneNumber) {
         return response(res, 400, false, 'phoneNumber is required.')
     }
 
-    createSession(id, res, { usePairingCode: usePairingCode, phoneNumber: phoneNumber })
+    createSession(id, res, { usePairingCode, phoneNumber })
 }
 
 const del = async (req, res) => {

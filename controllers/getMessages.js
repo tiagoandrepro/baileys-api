@@ -4,27 +4,24 @@ import response from './../response.js'
 const getMessages = async (req, res) => {
     const session = getSession(res.locals.sessionId)
 
-    /* eslint-disable camelcase */
     const { jid } = req.params
-    const { limit = 25, cursor_id = null, cursor_fromMe = null, isGroup = false } = req.query
+    const { limit = 25, cursorId = null, cursorFromMe = null, isGroup = false } = req.query
 
     const isGroupBool = isGroup === 'true'
-    let jid_format = (isGroupBool) ? formatGroup(jid) : formatPhone(jid)
+    const jidFormat = isGroupBool ? formatGroup(jid) : formatPhone(jid)
 
     const cursor = {}
 
-    if (cursor_id) {
+    if (cursorId) {
         cursor.before = {
-            id: cursor_id,
-            fromMe: Boolean(cursor_fromMe && cursor_fromMe === 'true'),
+            id: cursorId,
+            fromMe: Boolean(cursorFromMe && cursorFromMe === 'true'),
         }
     }
-    /* eslint-enable camelcase */
 
     try {
-
         const useCursor = 'before' in cursor ? cursor : null
-        let messages = await session.store.loadMessages(jid_format, limit, useCursor)
+        const messages = await session.store.loadMessages(jidFormat, limit, useCursor)
 
         response(res, 200, true, '', messages)
     } catch {

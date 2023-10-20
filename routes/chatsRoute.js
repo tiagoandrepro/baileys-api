@@ -11,19 +11,66 @@ router.get('/', query('id').notEmpty(), requestValidator, sessionValidator, cont
 
 router.get('/:jid', query('id').notEmpty(), requestValidator, sessionValidator, getMessages)
 
-router.post('/delete', query('id').notEmpty(), body('receiver').notEmpty(), body('message').notEmpty(), requestValidator, sessionValidator, controller.deleteChat)
+router.post(
+    '/delete',
+    query('id').notEmpty(),
+    body('receiver').notEmpty(),
+    body('message').notEmpty(),
+    requestValidator,
+    sessionValidator,
+    controller.deleteChat
+)
 
-router.post('/send', query('id').notEmpty(), body('receiver').notEmpty(), body('message').notEmpty(), requestValidator, sessionValidator, controller.send)
+router.post(
+    '/send',
+    query('id').notEmpty(),
+    body('receiver').notEmpty(),
+    body('message').notEmpty(),
+    requestValidator,
+    sessionValidator,
+    controller.send
+)
 
 router.post('/send-bulk', query('id').notEmpty(), requestValidator, sessionValidator, controller.sendBulk)
 
-router.post('/forward', query('id').notEmpty(), body('forward').notEmpty(), body('receiver').notEmpty(), body('isGroup').notEmpty(), requestValidator, sessionValidator, controller.forward)
+router.post(
+    '/forward',
+    query('id').notEmpty(),
+    body('forward').notEmpty(),
+    body('receiver').notEmpty(),
+    body('isGroup').notEmpty(),
+    requestValidator,
+    sessionValidator,
+    controller.forward
+)
 
-router.post('/read', query('id').notEmpty(), body('keys').notEmpty(), requestValidator, sessionValidator, controller.read)
+router.post(
+    '/read',
+    query('id').notEmpty(),
+    body('keys').notEmpty(),
+    requestValidator,
+    sessionValidator,
+    controller.read
+)
 
-router.post('/send-presence', query('id').notEmpty(), body('receiver').notEmpty(), body('presence').notEmpty(), requestValidator, sessionValidator, controller.sendPresence)
+router.post(
+    '/send-presence',
+    query('id').notEmpty(),
+    body('receiver').notEmpty(),
+    body('presence').notEmpty(),
+    requestValidator,
+    sessionValidator,
+    controller.sendPresence
+)
 
-router.post('/download-media', query('id').notEmpty(), body('remoteJid').notEmpty(), body('messageId').notEmpty(), requestValidator, sessionValidator, controller.downloadMedia)
-
+router.post(
+    '/download-media',
+    query('id').notEmpty(),
+    body('remoteJid').notEmpty(),
+    body('messageId').notEmpty(),
+    requestValidator,
+    sessionValidator,
+    controller.downloadMedia
+)
 
 export default router
