@@ -2,18 +2,17 @@ import { rmSync, readdir } from 'fs'
 import { join } from 'path'
 import pino from 'pino'
 import makeWASocket, {
-
     useMultiFileAuthState,
     makeInMemoryStore,
     Browsers,
     DisconnectReason,
     delay,
-} from '@adiwajshing/baileys'
+} from '@whiskeysockets/baileys'
 import { toDataURL } from 'qrcode'
 import __dirname from './dirname.js'
 import response from './response.js'
 import { webhook } from './services/webhook.js'
-
+import fs from 'fs'
 
 const sessions = new Map()
 const retries = new Map()
@@ -62,18 +61,22 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
     }
 
     /**
-     * @type {import('@adiwajshing/baileys').CommonSocketConfig}
+     * @type {import('@whiskeysockets/baileys').CommonSocketConfig}
      */
     const waConfig = {
         auth: state,
         printQRInTerminal: true,
         logger,
+        generateHighQualityLinkPreview: true,
+        linkPreviewImageThumbnailWidth: 1920,
+        keepAliveIntervalMs: 3600,
         version: [2,2323,4],
+        mobile: false,
         browser: Browsers.ubuntu('Chrome'),
     }
 
     /**
-     * @type {import('@adiwajshing/baileys').AnyWASocket}
+     * @type {import('@whiskeysockets/baileys').AnyWASocket}
      */
     const wa =  makeWASocket.default(waConfig)
 
@@ -175,7 +178,7 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
 }
 
 /**
- * @returns {(import('@adiwajshing/baileys').AnyWASocket|null)}
+ * @returns {(import('@whiskeysockets/baileys').AnyWASocket|null)}
  */
 const getSession = (sessionId) => {
     return sessions.get(sessionId) ?? null
@@ -207,7 +210,7 @@ const getGroupsWithParticipants = async (session) => {
 }
 
 /**
- * @param {import('@adiwajshing/baileys').AnyWASocket} session
+ * @param {import('@whiskeysockets/baileys').AnyWASocket} session
  */
 const isExists = async (session, jid, isGroup = false) => {
     try {
@@ -232,7 +235,7 @@ const isExists = async (session, jid, isGroup = false) => {
 }
 
 /**
- * @param {import('@adiwajshing/baileys').AnyWASocket} session
+ * @param {import('@whiskeysockets/baileys').AnyWASocket} session
  */
 const sendMessage = async (session, receiver, message, delayMs = 1000) => {
     try {
@@ -243,6 +246,8 @@ const sendMessage = async (session, receiver, message, delayMs = 1000) => {
         return Promise.reject(null) // eslint-disable-line prefer-promise-reject-errors
     }
 }
+
+
 
 const formatPhone = (phone) => {
     if (phone.endsWith('@s.whatsapp.net')) {
