@@ -68,10 +68,7 @@ const createSession = async (sessionId, isLegacy = false, res = null) => {
         printQRInTerminal: true,
         logger,
         generateHighQualityLinkPreview: true,
-        linkPreviewImageThumbnailWidth: 1920,
-        keepAliveIntervalMs: 3600,
         version: [2,2323,4],
-        mobile: false,
         browser: Browsers.ubuntu('Chrome'),
     }
 
