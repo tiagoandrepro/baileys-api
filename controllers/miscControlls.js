@@ -1,4 +1,13 @@
-import { updateProfileStatus, updateProfileName, getSession } from './../whatsapp.js'
+import {
+    updateProfileStatus,
+    updateProfileName,
+    getSession,
+    getProfilePicture,
+    formatPhone,
+    formatGroup,
+    profilePicture,
+    blockAndUnblockUser,
+} from './../whatsapp.js'
 import response from './../response.js'
 
 const setProfileStatus = async (req, res) => {
@@ -21,6 +30,18 @@ const setProfileName = async (req, res) => {
     }
 }
 
+const setProfilePicture = async (req, res) => {
+    try {
+        const session = getSession(res.locals.sessionId)
+        const { url } = req.body
+        session.user.phone = session.user.id.split(':')[0].split('@')[0]
+        await profilePicture(session, session.user.phone + '@s.whatsapp.net', url)
+        response(res, 200, true, 'Update profile picture successfully.')
+    } catch {
+        response(res, 500, false, 'Failed Update profile picture.')
+    }
+}
+
 const getProfile = async (req, res) => {
     try {
         const session = getSession(res.locals.sessionId)
@@ -35,4 +56,42 @@ const getProfile = async (req, res) => {
     }
 }
 
-export { setProfileStatus, setProfileName, getProfile }
+const getProfilePictureUser = async (req, res) => {
+    try {
+        const session = getSession(res.locals.sessionId)
+        const isGroup = req.body.isGroup ?? false
+        const jid = isGroup ? formatGroup(req.body.jid) : formatPhone(req.body.jid)
+
+        const imagen = await getProfilePicture(session, jid, 'image')
+        console.log(imagen)
+        response(res, 200, true, 'The image has been obtained successfully.', imagen)
+    } catch (err) {
+        if (err === null) {
+            return response(res, 404, false, 'the user or group not have image')
+        }
+
+        response(res, 500, false, 'Could not get the information')
+    }
+}
+
+const blockAndUnblockContact = async (req, res) => {
+    try {
+        const session = getSession(res.locals.sessionId)
+        const { jid, isBlock } = req.body
+        const jidFormat = formatPhone(jid)
+        const blockFormat = isBlock === true ? 'block' : 'unblock'
+        await blockAndUnblockUser(session, jidFormat, blockFormat)
+        response(res, 200, true, 'The contact has been blocked or unblocked successfully')
+    } catch {
+        response(res, 500, false, 'Failed to block or unblock contact')
+    }
+}
+
+export {
+    setProfileStatus,
+    setProfileName,
+    setProfilePicture,
+    getProfile,
+    getProfilePictureUser,
+    blockAndUnblockContact,
+}

@@ -98,10 +98,12 @@ At this moment we are working to bring more functionalities
 ### Misc
     * Update Profile Status
     * Update Profile Name
+    * Update Progile Image (NEW)
+    * Get My Profile {name, phote, status} (NEW)
+    * Block And Unblock User (NEW)
 
 ### Webhook
     * Global webhook
-    
 ## Known Issue
 
 Currently there's no known issues. If you find any, please kindly open a new one.

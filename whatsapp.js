@@ -303,6 +303,23 @@ const updateProfileName = async (session, name) => {
     }
 }
 
+const getProfilePicture = async (session, jid, type = 'image') => {
+    try {
+        console.log('getProfilePicture', jid, type)
+        return await session.profilePictureUrl(jid, type)
+    } catch {
+        return Promise.reject(null) // eslint-disable-line prefer-promise-reject-errors
+    }
+}
+
+const blockAndUnblockUser = async (session, jid, block) => {
+    try {
+        return await session.updateBlockStatus(jid, block)
+    } catch {
+        return Promise.reject(null) // eslint-disable-line prefer-promise-reject-errors
+    }
+}
+
 const formatPhone = (phone) => {
     if (phone.endsWith('@s.whatsapp.net')) {
         return phone
@@ -397,7 +414,7 @@ const getMessageMedia = async (session, message) => {
             message,
             'buffer',
             {},
-            { reuploadRequest: session.updateMediaMessage }
+            { reuploadRequest: session.updateMediaMessage },
         )
 
         return {
@@ -449,6 +466,7 @@ export {
     sendMessage,
     updateProfileStatus,
     updateProfileName,
+    getProfilePicture,
     formatPhone,
     formatGroup,
     cleanup,
@@ -467,4 +485,5 @@ export {
     isSessionConnected,
     getMessageMedia,
     getStoreMessage,
+    blockAndUnblockUser,
 }

@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "92b6ff15-d51c-472c-bbc0-81f7db72c0b8",
 		"name": "Baileys API v0.4",
-		"description": "API Documentation for [https://github.com/ookamiiixd/baileys-api](https://github.com/ookamiiixd/baileys-api).",
+		"description": "API Documentation fo [https://github.com/andresayac/baileys-api]()",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "9471522"
 	},
@@ -28,8 +28,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "{{session}}",
-									"description": "Your created session id."
+									"value": "{{session}}"
 								}
 							]
 						},
@@ -341,10 +340,17 @@
 									"type": "default"
 								},
 								{
-									"key": "isLegacy",
-									"value": "false",
-									"description": "Client type. Value: 'true' (Normal WhatsApp Web / Legacy) or 'false' (Beta Multi-Device).\n",
+									"key": "typeAuth",
+									"value": "code",
+									"description": "The authentication type (code or QR). By default, qr is selected.",
 									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "573",
+									"description": "Telephone number with international code used for authentication",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
@@ -588,8 +594,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "{{session}}",
-									"description": "Your created session id."
+									"value": "{{session}}"
 								}
 							]
 						},
@@ -714,7 +719,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"text\": \"hello there!\"\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"hello there!\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -789,7 +794,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"text\": \"hello there!\"\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"hello there!\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -866,7 +871,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"image\": {\r\n            \"url\": \"https://source.unsplash.com/random/200x200\"\r\n        },\r\n        \"caption\": \"My logo\"\r\n    }\r\n}",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"image\": {\r\n            \"url\": \"https://raw.githubusercontent.com/pedrazadixon/sample-files/main/sample_image.jpg\"\r\n        },\r\n        \"caption\": \"My logo\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -900,7 +905,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"image\": {\r\n            \"url\": \"https://source.unsplash.com/random/200x200\"\r\n        },\r\n        \"caption\": \"My logo\"\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"image\": {\r\n            \"url\": \"https://source.unsplash.com/random/200x200\"\r\n        },\r\n        \"caption\": \"My logo\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -975,7 +980,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"image\": {\r\n            \"url\": \"https://source.unsplash.com/random/200x200\"\r\n        },\r\n        \"caption\": \"My logo\"\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"image\": {\r\n            \"url\": \"https://source.unsplash.com/random/200x200\"\r\n        },\r\n        \"caption\": \"My logo\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1052,7 +1057,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"audio\": {\r\n            \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/sonata.mp3\"\r\n        }\r\n    }\r\n}",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"audio\": {\r\n            \"url\": \"https://github.com/pedrazadixon/sample-files/raw/main/sample_mp3.mp3\"\r\n        },\r\n        \"ptt\": true\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1086,7 +1091,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"audio\": {\r\n            \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/sonata.mp3\"\r\n        }\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"audio\": {\r\n            \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/sonata.mp3\"\r\n        }\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1161,7 +1166,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"audio\": {\r\n            \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/sonata.mp3\"\r\n        }\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"audio\": {\r\n            \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/sonata.mp3\"\r\n        }\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1238,7 +1243,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"video\": {\r\n            \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/ma_gif.mp4\"\r\n        },\r\n        \"caption\": \"hello!\"\r\n    }\r\n}",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"isBase64\": false,\r\n    \"message\": {\r\n        \"video\": {\r\n            \"url\": \"https://raw.githubusercontent.com/WhiskeySockets/Baileys/master/Media/ma_gif.mp4\"\r\n        },\r\n        \"caption\": \"My viedo\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1272,7 +1277,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"video\": {\r\n           \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/ma_gif.mp4\"\r\n        },\r\n        \"caption\": \"hello!\"\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"video\": {\r\n            \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/ma_gif.mp4\"\r\n        },\r\n        \"caption\": \"hello!\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1347,7 +1352,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"video\": {\r\n           \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/ma_gif.mp4\"\r\n        },\r\n        \"caption\": \"hello!\"\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"video\": {\r\n            \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/ma_gif.mp4\"\r\n        },\r\n        \"caption\": \"hello!\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1424,7 +1429,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"document\": {\r\n            \"url\": \"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf\"\r\n        },\r\n        \"caption\": \"hello!\",\r\n        \"mimetype\": \"application/pdf\"\r\n    }\r\n}",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"document\": {\r\n            \"url\": \"https://github.com/pedrazadixon/sample-files/raw/main/sample_pdf.pdf\"\r\n        },\r\n        \"caption\": \"revisa este video\",\r\n        \"mimetype\": \"application/pdf\",\r\n        \"fileName\": \"sample_pdf.pdf\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1458,7 +1463,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"document\": {\r\n            \"url\": \"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf\"\r\n        },\r\n        \"caption\": \"hello!\",\r\n        \"mimetype\": \"application/pdf\"\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"document\": {\r\n            \"url\": \"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf\"\r\n        },\r\n        \"caption\": \"hello!\",\r\n        \"mimetype\": \"application/pdf\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1533,7 +1538,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"document\": {\r\n            \"url\": \"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf\"\r\n        },\r\n        \"caption\": \"hello!\",\r\n        \"mimetype\": \"application/pdf\"\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"document\": {\r\n            \"url\": \"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf\"\r\n        },\r\n        \"caption\": \"hello!\",\r\n        \"mimetype\": \"application/pdf\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1610,7 +1615,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"video\": {\r\n            \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/ma_gif.mp4\"\r\n        },\r\n        \"caption\": \"hello!\",\r\n        \"gifPlayback\": true\r\n    }\r\n}",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"video\": {\r\n            \"url\": \"https://github.com/pedrazadixon/sample-files/raw/main/sample_video_mp4.mp4\"\r\n        },\r\n        \"caption\": \"hello!\",\r\n        \"gifPlayback\": true\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1644,7 +1649,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"video\": {\r\n           \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/ma_gif.mp4\"\r\n        },\r\n        \"caption\": \"hello!\",\r\n        \"gifPlayback\": true\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"video\": {\r\n            \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/ma_gif.mp4\"\r\n        },\r\n        \"caption\": \"hello!\",\r\n        \"gifPlayback\": true\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1719,7 +1724,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"video\": {\r\n           \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/ma_gif.mp4\"\r\n        },\r\n        \"caption\": \"hello!\",\r\n        \"gifPlayback\": true\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"video\": {\r\n            \"url\": \"https://raw.githubusercontent.com/adiwajshing/Baileys/master/Media/ma_gif.mp4\"\r\n        },\r\n        \"caption\": \"hello!\",\r\n        \"gifPlayback\": true\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1830,7 +1835,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"sticker\": {\r\n           \"url\": \"https://dayax.net/Media/sticker_mv.webp\"\r\n        }\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"sticker\": {\r\n            \"url\": \"https://dayax.net/Media/sticker_mv.webp\"\r\n        }\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1905,7 +1910,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"sticker\": {\r\n           \"url\": \"https://dayax.net/Media/sticker_mv.webp\"\r\n        }\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"sticker\": {\r\n            \"url\": \"https://dayax.net/Media/sticker_mv.webp\"\r\n        }\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1982,7 +1987,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"contacts\": {\r\n            \"displayName\": \"Jeff\",\r\n            \"contacts\": [\r\n                {\r\n                    \"vcard\": \"BEGIN:VCARD\\\\nVERSION:3.0\\\\nFN:Jeff Singh\\\\nORG:Ashoka Uni;\\\\nTEL;type=CELL;type=VOICE;waid=911234567890:+91 12345 67890\\\\nEND:VCARD\"\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"contacts\": {\r\n            \"displayName\": \"Jeff\",\r\n            \"contacts\": [\r\n                {\r\n                    \"vcard\": \"BEGIN:VCARD\\nVERSION:3.0\\nFN;CHARSET=UTF-8:John Doe\\nN;CHARSET=UTF-8:Doe;John;;;\\nEMAIL;CHARSET=UTF-8;type=HOME,INTERNET:john@doe.com\\nTEL;TYPE=HOME,VOICE:1234567890\\nREV:2021-06-06T02:35:53.559Z\\nEND:VCARD\"\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2016,7 +2021,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"contacts\": {\r\n            \"displayName\": \"Jeff\",\r\n            \"contacts\": [\r\n                {\r\n                    \"vcard\": \"BEGIN:VCARD\\\\nVERSION:3.0\\\\nFN:Jeff Singh\\\\nORG:Ashoka Uni;\\\\nTEL;type=CELL;type=VOICE;waid=911234567890:+91 12345 67890\\\\nEND:VCARD\"\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"contacts\": {\r\n            \"displayName\": \"Jeff\",\r\n            \"contacts\": [\r\n                {\r\n                    \"vcard\": \"BEGIN:VCARD\\\\nVERSION:3.0\\\\nFN:Jeff Singh\\\\nORG:Ashoka Uni;\\\\nTEL;type=CELL;type=VOICE;waid=911234567890:+91 12345 67890\\\\nEND:VCARD\"\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2091,7 +2096,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"contacts\": {\r\n            \"displayName\": \"Jeff\",\r\n            \"contacts\": [\r\n                {\r\n                    \"vcard\": \"BEGIN:VCARD\\\\nVERSION:3.0\\\\nFN:Jeff Singh\\\\nORG:Ashoka Uni;\\\\nTEL;type=CELL;type=VOICE;waid=911234567890:+91 12345 67890\\\\nEND:VCARD\"\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"contacts\": {\r\n            \"displayName\": \"Jeff\",\r\n            \"contacts\": [\r\n                {\r\n                    \"vcard\": \"BEGIN:VCARD\\\\nVERSION:3.0\\\\nFN:Jeff Singh\\\\nORG:Ashoka Uni;\\\\nTEL;type=CELL;type=VOICE;waid=911234567890:+91 12345 67890\\\\nEND:VCARD\"\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2202,7 +2207,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"location\": {\r\n            \"degreesLatitude\": 24.121231,\r\n            \"degreesLongitude\": 55.1121221\r\n        }\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"location\": {\r\n            \"degreesLatitude\": 24.121231,\r\n            \"degreesLongitude\": 55.1121221\r\n        }\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2277,7 +2282,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"location\": {\r\n            \"degreesLatitude\": 24.121231,\r\n            \"degreesLongitude\": 55.1121221\r\n        }\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"location\": {\r\n            \"degreesLatitude\": 24.121231,\r\n            \"degreesLongitude\": 55.1121221\r\n        }\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2527,7 +2532,7 @@
 							]
 						},
 						{
-							"name": "Send Message List",
+							"name": "Send Message React Copy",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -2540,7 +2545,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"This is a list\",\r\n        \"footer\": \"nice footer, link: https://google.com\",\r\n        \"title\": \"Amazing boldfaced list title\",\r\n        \"buttonText\": \"Required, text on the button to view the list\",\r\n        \"sections\": [\r\n            {\r\n                \"title\": \"Section 1\",\r\n                \"rows\": [\r\n                    {\r\n                        \"title\": \"Option 1\",\r\n                        \"rowId\": \"option1\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Option 2\",\r\n                        \"rowId\": \"option2\",\r\n                        \"description\": \"This is a description\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"title\": \"Section 2\",\r\n                \"rows\": [\r\n                    {\r\n                        \"title\": \"Option 3\",\r\n                        \"rowId\": \"option3\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Option 4\",\r\n                        \"rowId\": \"option4\",\r\n                        \"description\": \"This is a description V2\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n}",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"react\": {\r\n            \"text\": \"💖\",\r\n            \"key\": {\r\n                \"remoteJid\": \"120363027219XXXX@g.us\",\r\n                \"fromMe\": false,\r\n                \"id\": \"6F4132748XXXXXX\",\r\n                \"participant\": \"628231xxxxx@s.whatsapp.net\"\r\n            }\r\n        }\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2564,7 +2569,7 @@
 										}
 									]
 								},
-								"description": "Send List to someone, it is recommended to use the format provided\n\nModify to your liking"
+								"description": "Send reaction to someone, it is important to specify the identifier of the message"
 							},
 							"response": [
 								{
@@ -2574,7 +2579,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"text\": \"This is a list\",\r\n        \"footer\": \"nice footer, link: https://google.com\",\r\n        \"title\": \"Amazing boldfaced list title\",\r\n        \"buttonText\": \"Required, text on the button to view the list\",\r\n        \"sections\": [\r\n            {\r\n                \"title\": \"Section 1\",\r\n                \"rows\": [\r\n                    {\r\n                        \"title\": \"Option 1\",\r\n                        \"rowId\": \"option1\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Option 2\",\r\n                        \"rowId\": \"option2\",\r\n                        \"description\": \"This is a description\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"title\": \"Section 2\",\r\n                \"rows\": [\r\n                    {\r\n                        \"title\": \"Option 3\",\r\n                        \"rowId\": \"option3\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Option 4\",\r\n                        \"rowId\": \"option4\",\r\n                        \"description\": \"This is a description V2\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"react\": {\r\n            \"text\": \"💖\",\r\n            \"key\": {\r\n                \"remoteJid\": \"120363027219XXXX@g.us\",\r\n                \"fromMe\": false,\r\n                \"id\": \"6F4132748XXXXXX\",\r\n                \"participant\": \"628231xxxxx@s.whatsapp.net\"\r\n            }\r\n        }\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2649,7 +2654,193 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"text\": \"This is a list\",\r\n        \"footer\": \"nice footer, link: https://google.com\",\r\n        \"title\": \"Amazing boldfaced list title\",\r\n        \"buttonText\": \"Required, text on the button to view the list\",\r\n        \"sections\": [\r\n            {\r\n                \"title\": \"Section 1\",\r\n                \"rows\": [\r\n                    {\r\n                        \"title\": \"Option 1\",\r\n                        \"rowId\": \"option1\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Option 2\",\r\n                        \"rowId\": \"option2\",\r\n                        \"description\": \"This is a description\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"title\": \"Section 2\",\r\n                \"rows\": [\r\n                    {\r\n                        \"title\": \"Option 3\",\r\n                        \"rowId\": \"option3\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Option 4\",\r\n                        \"rowId\": \"option4\",\r\n                        \"description\": \"This is a description V2\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"react\": {\r\n            \"text\": \"💖\",\r\n            \"key\": {\r\n                \"remoteJid\": \"120363027219XXXX@g.us\",\r\n                \"fromMe\": false,\r\n                \"id\": \"6F4132748XXXXXX\",\r\n                \"participant\": \"628231xxxxx@s.whatsapp.net\"\r\n            }\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/chats/send?id={{session}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"chats",
+												"send"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "{{session}}",
+													"description": "Your created session id."
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "67"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 14 Feb 2022 13:58:14 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": false,\n    \"message\": \"Failed to send the message.\",\n    \"data\": {}\n}"
+								}
+							]
+						},
+						{
+							"name": "Send Message List",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"This is a list\",\r\n        \"footer\": \"nice footer, link: https://google.com\",\r\n        \"title\": \"Amazing boldfaced list title\",\r\n        \"buttonText\": \"Required, text on the button to view the list\",\r\n        \"sections\": [\r\n            {\r\n                \"title\": \"Section 1\",\r\n                \"rows\": [\r\n                    {\r\n                        \"title\": \"Option 1\",\r\n                        \"rowId\": \"option1\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Option 2\",\r\n                        \"rowId\": \"option2\",\r\n                        \"description\": \"This is a description\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"title\": \"Section 2\",\r\n                \"rows\": [\r\n                    {\r\n                        \"title\": \"Option 3\",\r\n                        \"rowId\": \"option3\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Option 4\",\r\n                        \"rowId\": \"option4\",\r\n                        \"description\": \"This is a description V2\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chats/send?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chats",
+										"send"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								},
+								"description": "Send List to someone, it is recommended to use the format provided\n\nModify to your liking"
+							},
+							"response": [
+								{
+									"name": "Response Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"This is a list\",\r\n        \"footer\": \"nice footer, link: https://google.com\",\r\n        \"title\": \"Amazing boldfaced list title\",\r\n        \"buttonText\": \"Required, text on the button to view the list\",\r\n        \"sections\": [\r\n            {\r\n                \"title\": \"Section 1\",\r\n                \"rows\": [\r\n                    {\r\n                        \"title\": \"Option 1\",\r\n                        \"rowId\": \"option1\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Option 2\",\r\n                        \"rowId\": \"option2\",\r\n                        \"description\": \"This is a description\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"title\": \"Section 2\",\r\n                \"rows\": [\r\n                    {\r\n                        \"title\": \"Option 3\",\r\n                        \"rowId\": \"option3\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Option 4\",\r\n                        \"rowId\": \"option4\",\r\n                        \"description\": \"This is a description V2\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/chats/send?id={{session}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"chats",
+												"send"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "{{session}}",
+													"description": "Your created session id."
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "78"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 27 May 2022 14:57:19 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"The message has been successfully sent.\",\n    \"data\": {}\n}"
+								},
+								{
+									"name": "Response Failed",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"This is a list\",\r\n        \"footer\": \"nice footer, link: https://google.com\",\r\n        \"title\": \"Amazing boldfaced list title\",\r\n        \"buttonText\": \"Required, text on the button to view the list\",\r\n        \"sections\": [\r\n            {\r\n                \"title\": \"Section 1\",\r\n                \"rows\": [\r\n                    {\r\n                        \"title\": \"Option 1\",\r\n                        \"rowId\": \"option1\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Option 2\",\r\n                        \"rowId\": \"option2\",\r\n                        \"description\": \"This is a description\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"title\": \"Section 2\",\r\n                \"rows\": [\r\n                    {\r\n                        \"title\": \"Option 3\",\r\n                        \"rowId\": \"option3\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Option 4\",\r\n                        \"rowId\": \"option4\",\r\n                        \"description\": \"This is a description V2\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2760,7 +2951,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"text\": \"Hi it's button message\",\r\n        \"footer\": \"Hello World\",\r\n        \"buttons\": [\r\n            {\r\n                \"buttonId\": \"id1\",\r\n                \"buttonText\": {\r\n                    \"displayText\": \"Button 1\"\r\n                },\r\n                \"type\": 1\r\n            },\r\n            {\r\n                \"buttonId\": \"id2\",\r\n                \"buttonText\": {\r\n                    \"displayText\": \"Button 2\"\r\n                },\r\n                \"type\": 1\r\n            },\r\n            {\r\n                \"buttonId\": \"id3\",\r\n                \"buttonText\": {\r\n                    \"displayText\": \"Button 3\"\r\n                },\r\n                \"type\": 1\r\n            }\r\n        ],\r\n        \"headerType\": 1\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"Hi it's button message\",\r\n        \"footer\": \"Hello World\",\r\n        \"buttons\": [\r\n            {\r\n                \"buttonId\": \"id1\",\r\n                \"buttonText\": {\r\n                    \"displayText\": \"Button 1\"\r\n                },\r\n                \"type\": 1\r\n            },\r\n            {\r\n                \"buttonId\": \"id2\",\r\n                \"buttonText\": {\r\n                    \"displayText\": \"Button 2\"\r\n                },\r\n                \"type\": 1\r\n            },\r\n            {\r\n                \"buttonId\": \"id3\",\r\n                \"buttonText\": {\r\n                    \"displayText\": \"Button 3\"\r\n                },\r\n                \"type\": 1\r\n            }\r\n        ],\r\n        \"headerType\": 1\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2835,7 +3026,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"text\": \"Hi it's button message\",\r\n        \"footer\": \"Hello World\",\r\n        \"buttons\": [\r\n            {\r\n                \"buttonId\": \"id1\",\r\n                \"buttonText\": {\r\n                    \"displayText\": \"Button 1\"\r\n                },\r\n                \"type\": 1\r\n            },\r\n            {\r\n                \"buttonId\": \"id2\",\r\n                \"buttonText\": {\r\n                    \"displayText\": \"Button 2\"\r\n                },\r\n                \"type\": 1\r\n            },\r\n            {\r\n                \"buttonId\": \"id3\",\r\n                \"buttonText\": {\r\n                    \"displayText\": \"Button 3\"\r\n                },\r\n                \"type\": 1\r\n            }\r\n        ],\r\n        \"headerType\": 1\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"Hi it's button message\",\r\n        \"footer\": \"Hello World\",\r\n        \"buttons\": [\r\n            {\r\n                \"buttonId\": \"id1\",\r\n                \"buttonText\": {\r\n                    \"displayText\": \"Button 1\"\r\n                },\r\n                \"type\": 1\r\n            },\r\n            {\r\n                \"buttonId\": \"id2\",\r\n                \"buttonText\": {\r\n                    \"displayText\": \"Button 2\"\r\n                },\r\n                \"type\": 1\r\n            },\r\n            {\r\n                \"buttonId\": \"id3\",\r\n                \"buttonText\": {\r\n                    \"displayText\": \"Button 3\"\r\n                },\r\n                \"type\": 1\r\n            }\r\n        ],\r\n        \"headerType\": 1\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2912,7 +3103,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"Hi it's a template message\",\r\n        \"footer\": \"Hello World\",\r\n        \"templateButtons\": [\r\n            {\r\n                \"index\": 1,\r\n                \"urlButton\": {\r\n                    \"displayText\": \"⭐ Star Baileys on GitHub!\",\r\n                    \"url\": \"https://github.com/adiwajshing/Baileys\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 2,\r\n                \"callButton\": {\r\n                    \"displayText\": \"Call me!\",\r\n                    \"phoneNumber\": \"+1 (234) 5678-901\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 3,\r\n                \"quickReplyButton\": {\r\n                    \"displayText\": \"This is a reply, just like normal buttons!\",\r\n                    \"id\": \"id-like-buttons-message\"\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n     \"message\": {\r\n        \"text\": \"Hi it's a template message\",\r\n        \"footer\": \"Hello World\",\r\n        \"templateButtons\": [\r\n            {\r\n                \"index\": 1,\r\n                \"urlButton\": {\r\n                    \"displayText\": \"⭐ Star Baileys on GitHub!\",\r\n                    \"url\": \"https://github.com/adiwajshing/Baileys\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 2,\r\n                \"callButton\": {\r\n                    \"displayText\": \"Call me!\",\r\n                    \"phoneNumber\": \"+1 (234) 5678-901\"\r\n                }\r\n            }            \r\n        ]\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2946,7 +3137,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"text\": \"Hi it's a template message\",\r\n        \"footer\": \"Hello World\",\r\n        \"templateButtons\": [\r\n            {\r\n                \"index\": 1,\r\n                \"urlButton\": {\r\n                    \"displayText\": \"⭐ Star Baileys on GitHub!\",\r\n                    \"url\": \"https://github.com/adiwajshing/Baileys\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 2,\r\n                \"callButton\": {\r\n                    \"displayText\": \"Call me!\",\r\n                    \"phoneNumber\": \"+1 (234) 5678-901\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 3,\r\n                \"quickReplyButton\": {\r\n                    \"displayText\": \"This is a reply, just like normal buttons!\",\r\n                    \"id\": \"id-like-buttons-message\"\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"Hi it's a template message\",\r\n        \"footer\": \"Hello World\",\r\n        \"templateButtons\": [\r\n            {\r\n                \"index\": 1,\r\n                \"urlButton\": {\r\n                    \"displayText\": \"⭐ Star Baileys on GitHub!\",\r\n                    \"url\": \"https://github.com/adiwajshing/Baileys\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 2,\r\n                \"callButton\": {\r\n                    \"displayText\": \"Call me!\",\r\n                    \"phoneNumber\": \"+1 (234) 5678-901\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 3,\r\n                \"quickReplyButton\": {\r\n                    \"displayText\": \"This is a reply, just like normal buttons!\",\r\n                    \"id\": \"id-like-buttons-message\"\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3021,7 +3212,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"628231xxxxx\",\r\n    \"message\": {\r\n        \"text\": \"Hi it's a template message\",\r\n        \"footer\": \"Hello World\",\r\n        \"templateButtons\": [\r\n            {\r\n                \"index\": 1,\r\n                \"urlButton\": {\r\n                    \"displayText\": \"⭐ Star Baileys on GitHub!\",\r\n                    \"url\": \"https://github.com/adiwajshing/Baileys\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 2,\r\n                \"callButton\": {\r\n                    \"displayText\": \"Call me!\",\r\n                    \"phoneNumber\": \"+1 (234) 5678-901\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 3,\r\n                \"quickReplyButton\": {\r\n                    \"displayText\": \"This is a reply, just like normal buttons!\",\r\n                    \"id\": \"id-like-buttons-message\"\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"Hi it's a template message\",\r\n        \"footer\": \"Hello World\",\r\n        \"templateButtons\": [\r\n            {\r\n                \"index\": 1,\r\n                \"urlButton\": {\r\n                    \"displayText\": \"⭐ Star Baileys on GitHub!\",\r\n                    \"url\": \"https://github.com/adiwajshing/Baileys\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 2,\r\n                \"callButton\": {\r\n                    \"displayText\": \"Call me!\",\r\n                    \"phoneNumber\": \"+1 (234) 5678-901\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 3,\r\n                \"quickReplyButton\": {\r\n                    \"displayText\": \"This is a reply, just like normal buttons!\",\r\n                    \"id\": \"id-like-buttons-message\"\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3085,7 +3276,7 @@
 							]
 						},
 						{
-							"name": "Send Message How To Forward",
+							"name": "Send Message Template Btn web Whatsapp",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -3098,7 +3289,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"forward\": {\r\n            \"key\": {\r\n                \"id\": null\r\n            },\r\n            \"message\": {\r\n                \"conversation\": \"hi this message is forwarded\"\r\n            }\r\n        }\r\n    }\r\n}",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n     \"message\": {\r\n        \"text\": \"Hi it's a template message\",\r\n        \"footer\": \"Hello World\",\r\n        \"templateButtons\": [\r\n            {\r\n                \"index\": 1,\r\n                \"quickReplyButton\": {\r\n                    \"displayText\": \"This is a reply, just like normal buttons!\",\r\n                    \"id\": \"id-like-buttons-message\"\r\n                }\r\n            }      \r\n        ]\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3122,7 +3313,7 @@
 										}
 									]
 								},
-								"description": "Send a message as if it was sent by someone"
+								"description": "StartFragment\n\nSend templates to someone, it is recommended to use the format provided\n\nModify to your liking\n\nEndFragment"
 							},
 							"response": [
 								{
@@ -3132,7 +3323,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"forward\": {\r\n            \"key\": {\r\n                \"id\": null\r\n            },\r\n            \"message\": {\r\n                \"conversation\": \"hi this message is forwarded\"\r\n            }\r\n        }\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"Hi it's a template message\",\r\n        \"footer\": \"Hello World\",\r\n        \"templateButtons\": [\r\n            {\r\n                \"index\": 1,\r\n                \"urlButton\": {\r\n                    \"displayText\": \"⭐ Star Baileys on GitHub!\",\r\n                    \"url\": \"https://github.com/adiwajshing/Baileys\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 2,\r\n                \"callButton\": {\r\n                    \"displayText\": \"Call me!\",\r\n                    \"phoneNumber\": \"+1 (234) 5678-901\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 3,\r\n                \"quickReplyButton\": {\r\n                    \"displayText\": \"This is a reply, just like normal buttons!\",\r\n                    \"id\": \"id-like-buttons-message\"\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3207,7 +3398,193 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"forward\": {\r\n            \"key\": {\r\n                \"id\": null\r\n            },\r\n            \"message\": {\r\n                \"conversation\": \"hi this message is forwarded\"\r\n            }\r\n        }\r\n    }\r\n}",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"Hi it's a template message\",\r\n        \"footer\": \"Hello World\",\r\n        \"templateButtons\": [\r\n            {\r\n                \"index\": 1,\r\n                \"urlButton\": {\r\n                    \"displayText\": \"⭐ Star Baileys on GitHub!\",\r\n                    \"url\": \"https://github.com/adiwajshing/Baileys\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 2,\r\n                \"callButton\": {\r\n                    \"displayText\": \"Call me!\",\r\n                    \"phoneNumber\": \"+1 (234) 5678-901\"\r\n                }\r\n            },\r\n            {\r\n                \"index\": 3,\r\n                \"quickReplyButton\": {\r\n                    \"displayText\": \"This is a reply, just like normal buttons!\",\r\n                    \"id\": \"id-like-buttons-message\"\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/chats/send?id={{session}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"chats",
+												"send"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "{{session}}",
+													"description": "Your created session id."
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "67"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 14 Feb 2022 13:58:14 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": false,\n    \"message\": \"Failed to send the message.\",\n    \"data\": {}\n}"
+								}
+							]
+						},
+						{
+							"name": "Send Message Poll",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"poll\": {\r\n            \"name\": \"You accept terms\",\r\n            \"values\": [\r\n                \"Yes\",\r\n                \"Not\"\r\n            ],\r\n            \"selectableCount\": 0\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chats/send?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chats",
+										"send"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								},
+								"description": "Send polls to someone.  \n`name`: Name of polls  \n`values`: arrays with options  \n`selectableCount`: number of elements selectable"
+							},
+							"response": [
+								{
+									"name": "Response Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"poll\": {\r\n            \"name\": \"hello there!\",\r\n            \"values\": [\r\n                \"test123\",\r\n                \"test231\"\r\n            ]\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/chats/send?id={{session}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"chats",
+												"send"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "{{session}}",
+													"description": "Your created session id."
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "78"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 27 May 2022 14:57:19 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"The message has been successfully sent.\",\n    \"data\": {}\n}"
+								},
+								{
+									"name": "Response Failed",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"poll\": {\r\n            \"name\": \"hello there!\",\r\n            \"values\": [\r\n                \"test123\",\r\n                \"test231\"\r\n            ]\r\n        }\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3362,13 +3739,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/chats/:jid?id={{session}}&limit=6&isGroup={{isGroup}}",
+							"raw": "{{base_url}}/chats/{{jid}}?id={{session}}&limit=5&isGroup={{isGroup}}",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"chats",
-								":jid"
+								"{{jid}}"
 							],
 							"query": [
 								{
@@ -3378,7 +3755,7 @@
 								},
 								{
 									"key": "limit",
-									"value": "6",
+									"value": "5",
 									"description": "Limit data length. Default: 25 (Optional)."
 								},
 								{
@@ -3397,13 +3774,6 @@
 									"key": "isGroup",
 									"value": "{{isGroup}}",
 									"description": "Default false"
-								}
-							],
-							"variable": [
-								{
-									"key": "jid",
-									"value": "{{receiver}}",
-									"description": "Chat jid."
 								}
 							]
 						},
@@ -3751,7 +4121,7 @@
 					]
 				},
 				{
-					"name": "Send Message",
+					"name": "Download Message Media",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -3764,7 +4134,186 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"receiver\": \"628231xxxxx\", \r\n    \"message\": {\r\n        \"text\": \"hello there!\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"remoteJid\": \"57xxxxxx@s.whatsapp.net\",\r\n    \"isGroup\": false,\r\n    \"messageId\": \"3EB0551C33F4857DA513A3\"\r\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chats/download-media?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								"download-media"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}",
+									"description": "Your created session id."
+								}
+							]
+						},
+						"description": "Download media using `messageId` and `remoteJid`\n\nit is important to specify if it is a group in `isGroup`"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"forward\": {\r\n        \"id\": \"3EB07BB4C18F7XXXX\",\r\n        \"remoteJid\": \"12036302721XXXX@g.us\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chats/forward?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chats",
+										"forward"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 14:57:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The message has been successfully forwarded.\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"forward\": {\r\n        \"id\": \"3EB07BB4C18F7XXXX\",\r\n        \"remoteJid\": \"12036302721XXXX@g.us\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chats/forward?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chats",
+										"forward"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 13:58:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed to forward the message.\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Send Message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"text\": \"hello there!\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3783,8 +4332,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "{{session}}",
-									"description": "Your created session id."
+									"value": "{{session}}"
 								}
 							]
 						},
@@ -3874,6 +4422,564 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"receiver\": \"628231xxxxx\", \r\n    \"message\": {\r\n        \"text\": \"hello there!\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chats/send?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chats",
+										"send"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 13:58:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed to send the message.\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Message Poll",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"remoteJid\": \"57300xxxxxxxx@s.whatsapp.net\",\r\n    \"isGroup\": false,\r\n    \"messageId\": \"BAE5EC706B741D18\"\r\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chats/get-poll?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								"get-poll"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}",
+									"description": "Your created session id."
+								}
+							]
+						},
+						"description": "Download media using `messageId` and `remoteJid`\n\nit is important to specify if it is a group in `isGroup`"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"forward\": {\r\n        \"id\": \"3EB07BB4C18F7XXXX\",\r\n        \"remoteJid\": \"12036302721XXXX@g.us\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chats/forward?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chats",
+										"forward"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 14:57:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The message has been successfully forwarded.\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"forward\": {\r\n        \"id\": \"3EB07BB4C18F7XXXX\",\r\n        \"remoteJid\": \"12036302721XXXX@g.us\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chats/forward?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chats",
+										"forward"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 13:58:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed to forward the message.\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"remoteJid\": \"628231xxxxx@s.whatsapp.net\",\r\n        \"fromMe\": true,\r\n        \"id\": \"9A8xxxxxAC0FE60B59F6xxxxxxxxxxx\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chats/delete?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}",
+									"description": "Your created session id."
+								}
+							]
+						},
+						"description": "Send a message as if it was sent by someone"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"forward\": {\r\n            \"key\": {\r\n                \"id\": null\r\n            },\r\n            \"message\": {\r\n                \"conversation\": \"hi this message is forwarded\"\r\n            }\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chats/send?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chats",
+										"send"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 14:57:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The message has been successfully sent.\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"forward\": {\r\n            \"key\": {\r\n                \"id\": null\r\n            },\r\n            \"message\": {\r\n                \"conversation\": \"hi this message is forwarded\"\r\n            }\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chats/send?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chats",
+										"send"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 13:58:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed to send the message.\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Archive Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"remoteJid\": \"628231xxxxx@s.whatsapp.net\",\r\n        \"fromMe\": true,\r\n        \"id\": \"9A8xxxxxAC0FE60B59F6xxxxxxxxxxx\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chats/archive?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								"archive"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}",
+									"description": "Your created session id."
+								}
+							]
+						},
+						"description": "Send a message as if it was sent by someone"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"forward\": {\r\n            \"key\": {\r\n                \"id\": null\r\n            },\r\n            \"message\": {\r\n                \"conversation\": \"hi this message is forwarded\"\r\n            }\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chats/send?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chats",
+										"send"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}",
+											"description": "Your created session id."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 14:57:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The message has been successfully sent.\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"receiver\": \"{{receiver}}\",\r\n    \"isGroup\": {{isGroup}},\r\n    \"message\": {\r\n        \"forward\": {\r\n            \"key\": {\r\n                \"id\": null\r\n            },\r\n            \"message\": {\r\n                \"conversation\": \"hi this message is forwarded\"\r\n            }\r\n        }\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4322,7 +5428,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"receiver\": \"628231xxxxx\", \r\n        \"message\": {\r\n            \"text\": \"hi! how are you?\"\r\n        }\r\n    },\r\n    {\r\n        \"receiver\": \"628950xxxxx\",\r\n        \"delay\": 60000, \r\n        \"message\": {\r\n            \"text\": \"i'm fine, thank you!\"\r\n        }\r\n    }\r\n]",
+							"raw": "[\r\n    {\r\n        \"receiver\": \"{{receiver}}\",\r\n        \"message\": {\r\n            \"text\": \"hi! how are you?\"\r\n        }\r\n    },\r\n    {\r\n        \"receiver\": \"{{receiver}}\",\r\n        \"delay\": 60000, \r\n        \"message\": {\r\n            \"text\": \"i'm fine, thank you!\"\r\n        }\r\n    },\r\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -7031,6 +8137,196 @@
 					]
 				},
 				{
+					"name": "Update Profile Image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://source.unsplash.com/random/200x200\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/misc/set-profile-picture?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"misc",
+								"set-profile-picture"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}"
+								}
+							]
+						},
+						"description": "Update Whatsapp profile image.  \nNote:  \nUse url public to imagen to update"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"https://source.unsplash.com/random/200x200\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/misc/set-profile-picture?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"misc",
+										"set-profile-picture"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 14:57:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Update profile picture successfully.\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"https://source.unsplash.com/random/200x200\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/misc/set-profile-picture?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"misc",
+										"set-profile-picture"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 13:58:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed Update profile picture.\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
 					"name": "Update Profile Name",
 					"request": {
 						"method": "POST",
@@ -7231,6 +8527,592 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"success\": false,\n    \"message\": \"Failed to update status\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Boxi",
+									"description": "name you want to set",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/misc/my-profile?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"misc",
+								"my-profile"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}"
+								}
+							]
+						},
+						"description": "Update Whatsapp profile name."
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "status",
+											"value": "Hi",
+											"type": "text"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/misc/update-profile-status?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"misc",
+										"update-profile-status"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 14:57:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The status has been updated successfully\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "status",
+											"value": "Hi",
+											"type": "text"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/misc/update-profile-status?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"misc",
+										"update-profile-status"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 13:58:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed to update status\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Profile Image User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jid\": \"57300278xxx\",\r\n    \"isGroup\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/misc/profile-picture?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"misc",
+								"profile-picture"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}"
+								}
+							]
+						},
+						"description": "Get image profile to group and user using jid"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"jid\": \"57300278xxx\",\r\n    \"isGroup\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/misc//profile-picture?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"misc",
+										"",
+										"profile-picture"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 14:57:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The image has been obtained successfully.\",\n    \"data\": \"https://pps.whatsapp.net/v/t61.24694-24/414641733_xxxxxx343_xxxxx_n.jpg?ccb=11-4&oh=01_AdT3FF6zdCFxxxxxxxQ&oe=xxx9&_nc_sid=xxc&_nc_cat=101\"\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"jid\": \"57300278xxx\",\r\n    \"isGroup\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/misc//profile-picture?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"misc",
+										"",
+										"profile-picture"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 13:58:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"the user or group not have image\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Block And Unblock User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jid\": \"57300278xxx\",\r\n    \"isBlock\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/misc/block-and-unblock?id={{session}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"misc",
+								"block-and-unblock"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{session}}"
+								}
+							]
+						},
+						"description": "Block user using jib is posible Block user and Unblock user"
+					},
+					"response": [
+						{
+							"name": "Response Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"jid\": \"57300278xxx\",\r\n    \"isBlock\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/misc/block-and-unblock?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"misc",
+										"block-and-unblock"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-ZvkGSI8StDnkSjZX5UQTQVUBqSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 May 2022 14:57:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The contact has been blocked or unblocked successfully\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Response Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"jid\": \"57300278xxx\",\r\n    \"isBlock\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/misc/block-and-unblock?id={{session}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"misc",
+										"block-and-unblock"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{session}}"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-VVa944bJzICOqHAXbrMtuGViNDY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Feb 2022 13:58:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Failed to block or unblock contact\",\n    \"data\": {}\n}"
 						}
 					]
 				}
