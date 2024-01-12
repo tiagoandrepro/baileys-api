@@ -100,6 +100,7 @@ At this moment we are working to bring more functionalities
     * Update Profile Name
     * Update Progile Image (NEW)
     * Get My Profile {name, phote, status} (NEW)
+    * Get Profile User (NEW)
     * Block And Unblock User (NEW)
 
 ### Webhook
