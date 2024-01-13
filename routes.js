@@ -4,8 +4,12 @@ import chatsRoute from './routes/chatsRoute.js'
 import groupsRoute from './routes/groupsRoute.js'
 import miscRoute from './routes/miscRoute.js'
 import response from './response.js'
+import authenticationValidator from './middlewares/authenticationValidator.js'
 
 const router = Router()
+
+// Use auth middleware for all routes
+router.use(authenticationValidator)
 
 router.use('/sessions', sessionsRoute)
 router.use('/chats', chatsRoute)
