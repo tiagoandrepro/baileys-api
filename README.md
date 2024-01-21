@@ -51,6 +51,8 @@ The server will respond in following JSON format:
 
 ##  Available Features
 At this moment we are working to bring more functionalities
+### Autentication
+    * ApiKey (By default it is not active, change it in env by adding your custom key)
 ### Sessions
     * Find Session
     * Session Status
