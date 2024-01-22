@@ -84,13 +84,15 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
     const { version, isLatest } = await fetchLatestBaileysVersion()
     console.log(`using WA v${version.join('.')}, isLatest: ${isLatest}`)
     // Load store
-    store?.readFromFile(sessionsDir(sessionFile) + '/baileys_store_multi.json')
+
+    console.log('Loading session: ' + sessionId)
+    console.log('Session file: ' + sessionsDir(sessionFile))
+    store?.readFromFile(sessionsDir(`${sessionId}_store.json`))
 
     // Save every 10s
     setInterval(() => {
-        // Check exist file sessionsDir(sessionFile) + '/baileys_store_multi.json'
-        if (existsSync(sessionsDir(sessionFile) + '/baileys_store_multi.json')) {
-            store?.writeToFile(sessionsDir(sessionFile) + '/baileys_store_multi.json')
+        if (existsSync(sessionsDir(sessionFile))) {
+            store?.writeToFile(sessionsDir(`${sessionId}_store.json`))
         }
     }, 10000)
 
@@ -182,7 +184,7 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
                 () => {
                     createSession(sessionId, res)
                 },
-                statusCode === DisconnectReason.restartRequired ? 0 : parseInt(process.env.RECONNECT_INTERVAL ?? 0)
+                statusCode === DisconnectReason.restartRequired ? 0 : parseInt(process.env.RECONNECT_INTERVAL ?? 0),
             )
         }
 
