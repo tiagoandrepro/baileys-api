@@ -83,10 +83,8 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
     // Fetch latest version of WA Web
     const { version, isLatest } = await fetchLatestBaileysVersion()
     console.log(`using WA v${version.join('.')}, isLatest: ${isLatest}`)
-    // Load store
 
-    console.log('Loading session: ' + sessionId)
-    console.log('Session file: ' + sessionsDir(sessionFile))
+    // Load store
     store?.readFromFile(sessionsDir(`${sessionId}_store.json`))
 
     // Save every 10s
