@@ -137,8 +137,8 @@ Configure in .env by default this MESSAGES_UPSERT,MESSAGES_DELETE,MESSAGES_UPDAT
 | LABELS_EDIT | labels.edit | JSON | event edit label |
 | LABELS_ASSOCIATION | labels.association | JSON | add/remove chat label association action |
 | CHATS_DELETE | chats.delete | JSON |  Notifies when chats is delete  |
-| MESSAGES_DELETE | messages.delete | JSON | |  Notifies when message is delete  |
-| ALL |  |  | |  All event send to Webhook  |
+| MESSAGES_DELETE | messages.delete | JSON | Notifies when message is delete  |
+| ALL |  |  | All event send to Webhook  |
 
 
 ## Known Issue
