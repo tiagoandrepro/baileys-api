@@ -97,7 +97,7 @@ const sendBulk = async (req, res) => {
         isAllFailed ? 500 : 200,
         !isAllFailed,
         isAllFailed ? 'Failed to send all messages.' : 'Some messages has been successfully sent.',
-        { errors }
+        { errors },
     )
 }
 
@@ -187,7 +187,7 @@ const downloadMedia = async (req, res) => {
             res,
             500,
             false,
-            'Error downloading multimedia message: it may not exist or may not contain multimedia content.'
+            'Error downloading multimedia message: it may not exist or may not contain multimedia content.',
         )
     }
 }
