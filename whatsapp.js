@@ -117,7 +117,7 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
         logger,
         msgRetryCounterCache,
         generateHighQualityLinkPreview: true,
-        browser: ['Chrome (Linux)', '', ''],
+        browser: ['Ubuntu', 'Chrome', '20.0.04'],
         getMessage,
     })
     store?.bind(wa.ev)
