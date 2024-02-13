@@ -113,10 +113,17 @@ Configure in .env by default this MESSAGES_UPSERT,MESSAGES_DELETE,MESSAGES_UPDAT
 
 | Name | Event | TypeData | Description |
 |------|-------|-----------|------------|
+| ALL |  |  | All event send to Webhook  |
 | QRCODE_UPDATED | qrcode.updated | json | Sends the base64 of the qrcode for reading |
 | CONNECTION_UPDATE | connection.update | json | Informs the status of the connection with whatsapp |
 | MESSAGES_UPSERT | message.upsert | json |  Notifies you when a message is received |
 | MESSAGES_UPDATE | message.update | json | Tells you when a message is updated |
+| MESSAGES_DELETE | messages.delete | JSON | Notifies when message is delete  |
+| MESSAGING_HISTORY_SET | messaging-history.set | JSON | set chats (history sync), everything is reverse chronologically sorted|
+| MESSAGES_MEDIA_UPDATE | messages.media-update | JSON | Notifies when a message message media have update |
+| MESSAGES_REACTION | messages.reaction | JSON | message was reacted to. If reaction was removed -- then "reaction.text" will be falsey  |
+| MESSAGES_RECEIPT_UPDATE | message-receipt.update | JSON | Notifies when a message have update |
+| MESSAGES_DELETE | messages.delete | JSON |  Notifies when a message is delete  |
 | CONTACTS_SET | contacts.set | json | Performs initial loading of all contacts</br>This event occurs only once |
 | CONTACTS_UPSERT | contacts.upsert | json | Reloads all contacts with additional information</br>This event occurs only once |
 | CONTACTS_UPDATE | contacts.update | json | Informs you when the chat is updated |
@@ -124,21 +131,14 @@ Configure in .env by default this MESSAGES_UPSERT,MESSAGES_DELETE,MESSAGES_UPDAT
 | CHATS_SET | chats.set | json | Send a list of all loaded chats |
 | CHATS_UPDATE | chats.update | json | Informs you when the chat is updated |
 | CHATS_UPSERT | chats.upsert | json | Sends any new chat information |
+| CHATS_DELETE | chats.delete | JSON |  Notifies when chats is delete  |
 | GROUPS_UPSERT | groups.upsert | JSON | Notifies when a group is created |
 | GROUPS_UPDATE | groups.update | JSON | Notifies when a group has its information updated |
 | GROUP_PARTICIPANTS_UPDATE | group-participants.update | JSON | Notifies when an action occurs involving a participant</br>'add' | 'remove' | 'promote' | 'demote' |
 | BLOCKLIST_SET | blocklist.set | JSON |  Notifies when is set contact in blocklist |
 | BLOCKLIST_UPDATE | blocklist.update | JSON | event of add/remove contact in blocklist  |
-| MESSAGING_HISTORY_SET | messaging-history.set | JSON | set chats (history sync), everything is reverse chronologically sorted|
-| MESSAGES_MEDIA_UPDATE | messages.media-update | JSON | Notifies when a message message media have update |
-| MESSAGES_REACTION | messages.reaction | JSON | message was reacted to. If reaction was removed -- then "reaction.text" will be falsey  |
-| MESSAGES_RECEIPT_UPDATE | message-receipt.update | JSON | Notifies when a message have update |
-| MESSAGES_DELETE | messages.delete | JSON |  Notifies when a message is delete  |
 | LABELS_EDIT | labels.edit | JSON | event edit label |
 | LABELS_ASSOCIATION | labels.association | JSON | add/remove chat label association action |
-| CHATS_DELETE | chats.delete | JSON |  Notifies when chats is delete  |
-| MESSAGES_DELETE | messages.delete | JSON | Notifies when message is delete  |
-| ALL |  |  | All event send to Webhook  |
 
 
 ## Known Issue
