@@ -10,6 +10,7 @@ import makeWASocket, {
     downloadMediaMessage,
     getAggregateVotesInPollMessage,
     fetchLatestBaileysVersion,
+    WAMessageStatus,
 } from '@whiskeysockets/baileys'
 
 import proto from '@whiskeysockets/baileys'
@@ -25,6 +26,8 @@ const msgRetryCounterCache = new NodeCache()
 
 const sessions = new Map()
 const retries = new Map()
+
+const APP_WEBHOOK_ALLOWED_EVENTS = process.env.APP_WEBHOOK_ALLOWED_EVENTS.split(',')
 
 const sessionsDir = (sessionId = '') => {
     return join(__dirname, 'sessions', sessionId ? sessionId : '')
@@ -53,6 +56,12 @@ const shouldReconnect = (sessionId) => {
     }
 
     return false
+}
+
+const callWebhook = (instance, eventType, eventData) => {
+    if (APP_WEBHOOK_ALLOWED_EVENTS.includes('ALL') || APP_WEBHOOK_ALLOWED_EVENTS.includes(eventType)) {
+        webhook(instance, eventType, eventData)
+    }
 }
 
 const webhook = async (instance, type, data) => {
@@ -132,7 +141,27 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
     wa.ev.on('creds.update', saveCreds)
 
     wa.ev.on('chats.set', ({ chats }) => {
-        console.log('chats.set', chats)
+        callWebhook(sessionId, 'CHATS_SET', chats)
+    })
+
+    wa.ev.on('chats.upsert', (c) => {
+        callWebhook(sessionId, 'CHATS_UPSERT', c)
+    })
+
+    wa.ev.on('chats.delete', (c) => {
+        callWebhook(sessionId, 'CHATS_DELETE', c)
+    })
+
+    wa.ev.on('chats.update', (c) => {
+        callWebhook(sessionId, 'CHATS_UPDATE', c)
+    })
+
+    wa.ev.on('labels.association', (l) => {
+        callWebhook(sessionId, 'LABELS_ASSOCIATION', l)
+    })
+
+    wa.ev.on('labels.edit', (l) => {
+        callWebhook(sessionId, 'LABELS_EDIT', l)
     })
 
     // Automatically read incoming messages, uncomment below codes to enable this behaviour
@@ -141,11 +170,42 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
             return m.key.fromMe === false
         })
         if (messages.length > 0) {
-            webhook(sessionId, 'messages/upsert', messages)
+            // Change status
+            for (const message of messages) {
+                if (message?.status) {
+                    m.status = WAMessageStatus[m?.status] ?? 'UNKNOWN'
+                }
+
+                callWebhook(sessionId, 'MESSAGES_UPSERT', message)
+            }
         }
     })
 
+    wa.ev.on('messages.delete', async (m) => {
+        callWebhook(sessionId, 'MESSAGES_DELETE', m)
+    })
+
     wa.ev.on('messages.update', async (m) => {
+        for (const { key, update } of m) {
+            const msg = await getMessage(key)
+
+            if (!msg) {
+                continue
+            }
+
+            update.status = WAMessageStatus[update.status]
+            const messagesUpdate = [
+                {
+                    key,
+                    update,
+                    message: msg,
+                },
+            ]
+            callWebhook(sessionId, 'MESSAGES_UPDATE', messagesUpdate)
+        }
+    })
+
+    wa.ev.on('message-receipt.update', async (m) => {
         for (const { key, messageTimestamp, pushName, broadcast, update } of m) {
             if (update.pollUpdates) {
                 const pollCreation = await getMessage(key)
@@ -155,15 +215,34 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
                         pollUpdates: update.pollUpdates,
                     })
                     update.pollUpdates[0].vote = pollMessage
-                    webhook(sessionId, 'messages/update', [{ key, messageTimestamp, pushName, broadcast, update }])
+                    callWebhook(sessionId, 'MESSAGES_RECEIPT_UPDATE', [
+                        { key, messageTimestamp, pushName, broadcast, update },
+                    ])
+                    return
                 }
             }
         }
+
+        callWebhook(sessionId, 'MESSAGES_RECEIPT_UPDATE', m)
+    })
+
+    wa.ev.on('messages.reaction', async (m) => {
+        callWebhook(sessionId, 'MESSAGES_REACTION', m)
+    })
+
+    wa.ev.on('messages.media-update', async (m) => {
+        callWebhook(sessionId, 'MESSAGES_MEDIA_UPDATE', m)
+    })
+
+    wa.ev.on('messaging-history.set', async (m) => {
+        callWebhook(sessionId, 'MESSAGING_HISTORY_SET', m)
     })
 
     wa.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect } = update
         const statusCode = lastDisconnect?.error?.output?.statusCode
+
+        callWebhook(sessionId, 'CONNECTION_UPDATE', update)
 
         if (connection === 'open') {
             retries.delete(sessionId)
@@ -188,6 +267,8 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
 
         if (update.qr) {
             if (res && !res.headersSent) {
+                callWebhook(sessionId, 'QRCODE_UPDATED', update)
+
                 try {
                     const qr = await toDataURL(update.qr)
 
@@ -206,6 +287,42 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
                 deleteSession(sessionId)
             }
         }
+    })
+
+    wa.ev.on('groups.upsert', async (m) => {
+        callWebhook(sessionId, 'GROUPS_UPSERT', m)
+    })
+
+    wa.ev.on('groups.update', async (m) => {
+        callWebhook(sessionId, 'GROUPS_UPDATE', m)
+    })
+
+    wa.ev.on('group-participants.update', async (m) => {
+        callWebhook(sessionId, 'GROUP_PARTICIPANTS_UPDATE', m)
+    })
+
+    wa.ev.on('blocklist.set', async (m) => {
+        callWebhook(sessionId, 'BLOCKLIST_SET', m)
+    })
+
+    wa.ev.on('blocklist.update', async (m) => {
+        callWebhook(sessionId, 'BLOCKLIST_UPDATE', m)
+    })
+
+    wa.ev.on('contacts.set', async (c) => {
+        callWebhook(sessionId, 'CONTACTS_SET', c)
+    })
+
+    wa.ev.on('contacts.upsert', async (c) => {
+        callWebhook(sessionId, 'CONTACTS_UPSERT', c)
+    })
+
+    wa.ev.on('contacts.update', async (c) => {
+        callWebhook(sessionId, 'CONTACTS_UPDATE', c)
+    })
+
+    wa.ev.on('presence.update', async (p) => {
+        callWebhook(sessionId, 'PRESENCE_UPDATE', p)
     })
 
     async function getMessage(key) {
@@ -277,8 +394,7 @@ const isExists = async (session, jid, isGroup = false) => {
 const sendMessage = async (session, receiver, message, delayMs = 1000) => {
     try {
         await delay(parseInt(delayMs))
-
-        return session.sendMessage(receiver, message)
+        return await session.sendMessage(receiver, message)
     } catch {
         return Promise.reject(null) // eslint-disable-line prefer-promise-reject-errors
     }
@@ -305,7 +421,6 @@ const updateProfileName = async (session, name) => {
 
 const getProfilePicture = async (session, jid, type = 'image') => {
     try {
-        console.log('getProfilePicture', jid, type)
         return await session.profilePictureUrl(jid, type)
     } catch {
         return Promise.reject(null) // eslint-disable-line prefer-promise-reject-errors
