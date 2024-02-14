@@ -58,9 +58,9 @@ const shouldReconnect = (sessionId) => {
     return false
 }
 
-const callWebhook = (instance, eventType, eventData) => {
+const callWebhook = async (instance, eventType, eventData) => {
     if (APP_WEBHOOK_ALLOWED_EVENTS.includes('ALL') || APP_WEBHOOK_ALLOWED_EVENTS.includes(eventType)) {
-        webhook(instance, eventType, eventData)
+        await webhook(instance, eventType, eventData)
     }
 }
 
@@ -170,14 +170,55 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
             return m.key.fromMe === false
         })
         if (messages.length > 0) {
-            // Change status
-            for (const message of messages) {
-                if (message?.status) {
-                    m.status = WAMessageStatus[m?.status] ?? 'UNKNOWN'
-                }
+            const messageTmp = await Promise.all(
+                messages.map(async (msg) => {
+                    try {
+                        const typeMessage = Object.keys(msg.message)[0]
+                        if (msg?.status) {
+                            msg.status = WAMessageStatus[msg?.status] ?? 'UNKNOWN'
+                        }
 
-                callWebhook(sessionId, 'MESSAGES_UPSERT', message)
-            }
+                        if (
+                            ['documentMessage', 'imageMessage', 'videoMessage', 'audioMessage'].includes(typeMessage) &&
+                            process.env.APP_WEBHOOK_FILE_IN_BASE64 === 'true'
+                        ) {
+                            const mediaMessage = await getMessageMedia(wa, msg)
+
+                            const fieldsToConvert = [
+                                'fileEncSha256',
+                                'mediaKey',
+                                'fileSha256',
+                                'jpegThumbnail',
+                                'thumbnailSha256',
+                                'thumbnailEncSha256',
+                                'streamingSidecar',
+                            ]
+
+                            fieldsToConvert.forEach((field) => {
+                                if (msg.message[typeMessage]?.[field] !== undefined) {
+                                    msg.message[typeMessage][field] = convertToBase64(msg.message[typeMessage][field])
+                                }
+                            })
+
+                            return {
+                                ...msg,
+                                message: {
+                                    [typeMessage]: {
+                                        ...msg.message[typeMessage],
+                                        fileBase64: mediaMessage.base64,
+                                    },
+                                },
+                            }
+                        }
+
+                        return msg
+                    } catch {
+                        return {}
+                    }
+                }),
+            )
+
+            callWebhook(sessionId, 'MESSAGES_UPSERT', messageTmp)
         }
     })
 
@@ -548,6 +589,11 @@ const getMessageMedia = async (session, message) => {
         // eslint-disable-next-line prefer-promise-reject-errors
         return Promise.reject(null)
     }
+}
+
+const convertToBase64 = (arrayBytes) => {
+    const byteArray = new Uint8Array(arrayBytes)
+    return Buffer.from(byteArray).toString('base64')
 }
 
 const init = () => {
