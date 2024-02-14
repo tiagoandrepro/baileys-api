@@ -109,7 +109,8 @@ At this moment we are working to bring more functionalities
     * Global webhook
 
 ## Webhook Events
-Configure in .env by default this MESSAGES_UPSERT,MESSAGES_DELETE,MESSAGES_UPDATE or use ALL
+Configure in .env by default this `MESSAGES_UPSERT,MESSAGES_DELETE,MESSAGES_UPDATE` or use `ALL`
+If it is necessary to send multimedia message in base64 use `APP_WEBHOOK_FILE_IN_BASE64=true`
 
 | Name | Event | TypeData | Description |
 |------|-------|-----------|------------|
