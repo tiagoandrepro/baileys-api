@@ -15,17 +15,24 @@ An implementation of [@whiskeysockets/Baileys](https://github.com/whiskeysockets
 ## `.env` Configurations
 
 ```env
-# Listening Host
+# Api host and port
 HOST=127.0.0.1
-
-# Listening Port
 PORT=8000
 
-# Maximum Reconnect Attempts
-MAX_RETRIES=5
+# Number retry to connect to whatsapp -1 for infinite
+MAX_RETRIES=-1
 
-# Reconnect Interval (in Milliseconds)
+# Maximun time to connect to whatsapp
 RECONNECT_INTERVAL=5000
+
+# Authentication
+AUTHENTICATION_GLOBAL_AUTH_TOKEN=A4gx18YGxKAvR01ClcHpcR7TjZUNtwvE
+
+# WEBHOOK CONFIGURATION
+APP_WEBHOOK_URL=""
+APP_WEBHOOK_ALLOWED_EVENTS=MESSAGES_UPSERT,MESSAGES_DELETE,MESSAGES_UPDATE
+APP_WEBHOOK_FILE_IN_BASE64=false
+
 ```
 
 ## Usage
