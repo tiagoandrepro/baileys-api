@@ -248,7 +248,7 @@ const createSession = async (sessionId, res = null, options = { usePairingCode: 
 
     wa.ev.on('message-receipt.update', async (m) => {
         for (const { key, messageTimestamp, pushName, broadcast, update } of m) {
-            if (update.pollUpdates) {
+            if (update?.pollUpdates) {
                 const pollCreation = await getMessage(key)
                 if (pollCreation) {
                     const pollMessage = await getAggregateVotesInPollMessage({
