@@ -84,7 +84,7 @@ const webhook = async (instance, type, data) => {
 const createSession = async (sessionId, res = null, options = { usePairingCode: false, phoneNumber: '' }) => {
     const sessionFile = 'md_' + sessionId
 
-    const logger = pino({ level: 'silent' })
+    const logger = pino({ level: 'debug' })
     const store = makeInMemoryStore({ logger })
 
     const { state, saveCreds } = await useMultiFileAuthState(sessionsDir(sessionFile))
@@ -423,7 +423,7 @@ const isExists = async (session, jid, isGroup = false) => {
 
         ;[result] = await session.onWhatsApp(jid)
 
-        return result.exists
+        return result
     } catch {
         return false
     }

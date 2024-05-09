@@ -43,6 +43,15 @@ router.post(
     controller.setProfilePicture,
 )
 
+router.get(
+    '/exist',
+    query('id').notEmpty(),
+    body('mobile').notEmpty(),
+    requestValidator,
+    sessionValidator,
+    controller.checkMobilePhone,
+)
+
 router.post(
     '/block-and-unblock',
     query('id').notEmpty(),
